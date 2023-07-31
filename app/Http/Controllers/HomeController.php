@@ -30,4 +30,14 @@ class HomeController extends Controller
     {
         return view('adminHome');
     }
+
+    public function riderHome()
+    {
+        return view('riderHome');
+    }
+
+    public function tellerHome()
+    {
+        return view('tellerHome');
+    }
 }

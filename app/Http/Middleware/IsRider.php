@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class IsAdmin
+class IsRider
 {
     /**
      * Handle an incoming request.
@@ -18,13 +18,13 @@ class IsAdmin
     {
         switch (auth()->user()->type) {
         case "admin":
-            return $next($request);
+            return redirect('admin/home')->with('error',"You don't have admin access.");
             break;
         case "client":
             return redirect('home')->with('error',"You don't have admin access.");
             break;
         case "rider":
-            return redirect('rider/home')->with('error',"You don't have admin access.");
+            return $next($request);
             break;
         default:
             return redirect('teller/home')->with('error',"You don't have admin access.");

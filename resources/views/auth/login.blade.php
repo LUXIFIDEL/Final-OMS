@@ -10,6 +10,12 @@
             <img class="mb-4 rounded-circle shadow bg-body" src="{{asset('/image/Moonride-Logo.jpg')}}" alt="Moonride Logo" height="100">
         </a>
         <h1 class="h3 mb-3 fw-normal">Please sign in your Account</h1>
+        @if (Session::has('data'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ Session::get('data') }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="form-floating">
             <input type="email" class="form-control mb-2 bg-white @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email address</label>

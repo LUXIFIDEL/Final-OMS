@@ -19,19 +19,17 @@
     </head>
     <div class="ml-2 links">
       <div class="mb-2 link-icon">
-        <a href="https://www.facebook.com/moonride.ph" target="_blank">
-          <i class="rounded-circle p-2 bg-white fa fa-facebook-square fa-2x text-dark mr-2" aria-hidden="true"></i></a>
+        <a class="icon-fb" href="https://www.facebook.com/moonride.ph" target="_blank">
+          <i class="rounded-circle p-2 bg-white fa fa-facebook-square fa-2x text-dark mr-2" aria-hidden="true" id=""></i></a>
           <span class="fbtxt">Facebook</span>
       </div>
       <div class="link-icon">
-        <a href="https://www.instagram.com/moonride.bu/?fbclid=IwAR2sslsnPOGAZx9woTzkIv75RZwCNa5vzTiTurSqsR9eUYIyysVzZPRwtc4" target="_blank">
+        <a class="icon-ins" href="https://www.instagram.com/moonride.bu/?fbclid=IwAR2sslsnPOGAZx9woTzkIv75RZwCNa5vzTiTurSqsR9eUYIyysVzZPRwtc4" target="_blank">
           <i class="rounded-circle p-2 bg-white fa fa-instagram fa-2x text-dark" aria-hidden="true"></i></a>
           <span class="instxt">Instagram</span>
       </div>
-    
     </div>
     <body>
-     
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
           <div class="container-fluid">
             <a class="navbar-brand" href="{{url('/')}}"><img class="rounded-circle shadow bg-body" src="{{asset('/image/Moonride-Logo.jpg')}}" alt="Moonride Logo" height="50"> OSMS-Moonride</a>
@@ -60,47 +58,20 @@
           </div>
         </nav>
         <main class="desktop">
-          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active" style="overflow:hidden">
-               <div class="row" style="height:100vh; background-image:url('{{asset('/image/s1.png')}}'); background-size:cover; background-position-y: center; background-position-x:center;">
-                <div class="info-content">
-                  <div class="info-center">
-                    <h1 class="mr-font fw-bold text-white">MOODRIDE</h1>
-                    <h1 class="mds-font">Multi-Delivery Services</h1>
-                    <div class="a-line text-white">
-                      <p>A registered company in Bulan, Sorsogon, offers a multi-service platform where anything can be delivered to your doorstep, be it food, supplies, or other goods.</p>
-                    </div>
-                    <div class="col-6 mx-auto">
-                    <a href="{{route('login')}}" class="w-100 btn btn-lg btn-warning rounded-pill fw-bold mt-3">ORDER NOW!</a>
-                    </div>
-                  </div>
+          <div class="row" style="height:100vh; background-image:url('{{asset('/image/s1.png')}}'); background-size:cover; background-position-y: center; background-position-x:center;">
+            <div class="info-content">
+              <div class="info-center">
+                <h1 class="mr-font fw-bold text-white">MOODRIDE</h1>
+                <h1 class="mds-font">Multi-Delivery Services</h1>
+                <div class="a-line text-white">
+                  <p>A registered company in Bulan, Sorsogon, offers a multi-service platform where anything can be delivered to your doorstep, be it food, supplies, or other goods.</p>
                 </div>
-               </div>
-              </div>
-              <div class="carousel-item" style="overflow:hidden">
-                <div class="row" style="height:100vh; background-image:url('{{asset('/image/s2.jpg')}}'); background-size:cover; background-position-y: center; background-position-x:center;"></div>
-              </div>
-              <div class="carousel-item" style="overflow:hidden">
-                <div class="row" style="height:100vh; background-image:url('{{asset('/image/s3.jpg')}}'); background-size:cover; background-position-y: center; background-position-x:center;">></div>
-              </div>
-              <div class="carousel-item" style="overflow:hidden">
-                <div class="row" style="height:100vh; background-image:url('{{asset('/image/s4.jpg')}}'); background-size:cover; background-position-y: center; background-position-x:center;">></div>
-              </div>
-              <div class="carousel-item" style="overflow:hidden">
-                <div class="row" style="height:100vh; background-image:url('{{asset('/image/s5.jpg')}}'); background-size:cover; background-position-y: center; background-position-x:center;">></div>
+                <div class="col-6 mx-auto">
+                <a href="{{route('login')}}" class="w-100 btn btn-lg btn-warning rounded-pill fw-bold mt-3">ORDER NOW!</a>
+                </div>
               </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
           </div>
-         
         </main>
         <main class="mobile">
           <div class="text-center">

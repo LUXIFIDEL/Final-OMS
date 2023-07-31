@@ -22,7 +22,7 @@
                         </div>
                     @endif
 
-                    You are Admin.
+                    You are Rider.
                     
                 </div>
             </div>

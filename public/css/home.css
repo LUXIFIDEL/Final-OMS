@@ -1,60 +1,80 @@
 .links {
-    position: fixed;
-    z-index: 9999;
-    top: 50%;
-  }
-  .link-icon {
-    display: flex;
-    align-items: center;
-  }
-  .fbtxt, .instxt {
-    background-color: #000000;
-    color: #ffffff;
-    border-radius: 10px;
-    padding: 3px;
-  }
-  .instxt{
-    margin-left: 7px;
-  }
-  .mobile {
-      display: none;
-  }
-  @media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-      .desktop, .links {
-          display: none;
-      }
-      
-      .mobile {
-          display: block;
-      }
-      .custom-radius {
-          border-radius: 20px;
-      }
-  }
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+}
+.link-icon {
+  display: flex;
+  align-items: center;
+}
+.fbtxt, .instxt {
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 3px;
+}
+.instxt{
+  margin-left: 7px;
+}
+.mobile {
+    display: none;
+}
+@media only screen and (max-width: 768px) {
+/* For mobile phones: */
+    .desktop, .links {
+        display: none;
+    }
+    
+    .mobile {
+        display: block;
+    }
+    .custom-radius {
+        border-radius: 20px;
+    }
+}
 
-  .info-content {
-    display:flex; 
-    justify-content:center; 
-    align-items: center; 
-    flex-direction:column;
-  }
+.info-content {
+  display:flex; 
+  justify-content:center; 
+  align-items: center; 
+  flex-direction:column;
+}
 
-  .info-center{
-    margin: 10px auto; 
-    text-align:center; 
-    width:500px;
-  }
-  .mr-font {
-    font-size:60pt;
-    margin-bottom: -10px;
-  }
-  .mds-font{
-    color:#ffc000;
-    font-family: Kunstler Script;
-    line-height: 60px;
-    font-size:60pt;
-  }
-  .a-line p {
-    font-size: 12pt;
-  }
+.info-center{
+  margin: 10px auto; 
+  text-align:center; 
+  width:500px;
+}
+.mr-font {
+  font-size:60pt;
+  margin-bottom: -10px;
+}
+.mds-font{
+  color:#ffc000;
+  font-family: Kunstler Script;
+  line-height: 60px;
+  font-size:60pt;
+}
+.a-line p {
+  font-size: 12pt;
+}
+.fbtxt, .instxt {
+  display: none;
+}
+.icon-fb:hover + .fbtxt, .icon-ins:hover + .instxt {
+  display: block;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 0.8;
+	animation-timing-function: ease-in;
+	animation-duration: 0.6s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

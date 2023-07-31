@@ -19,5 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('is_client');
 Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+Route::get('rider/home', [App\Http\Controllers\HomeController::class, 'riderHome'])->name('rider.home')->middleware('is_rider');
+Route::get('teller/home', [App\Http\Controllers\HomeController::class, 'tellerHome'])->name('teller.home')->middleware('is_teller');

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -21,8 +22,15 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_admin'
+        'type'
     ];
+
+    protected function type(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => ["client", "admin", "teller", "rider"][$value],
+        );
+    }
 
     /**
      * The attributes that should be hidden for serialization.
