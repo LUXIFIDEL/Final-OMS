@@ -38,7 +38,7 @@ Dashboard
                 </div>
             </div>
             <div class="col-xl-4 col-xxl-4 col-sm-6">
-                <div class="card bg-success invoice-card">
+                <div class="card bg-warning invoice-card">
                     <div class="card-body d-flex">
                         <div class="icon me-3">
                             <svg width="35px" height="34px">
@@ -52,7 +52,7 @@ Dashboard
                             <span class="text-white fs-18">Total sales this month</span>
                         </div>
                     </div>
-                    <a href="" class="btn btn-success">
+                    <a href="" class="btn btn-warning">
                     <span>View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -65,7 +65,7 @@ Dashboard
                 </div>
             </div>
             <div class="col-xl-4 col-xxl-4 col-sm-6">
-                <div class="card bg-secondary invoice-card">
+                <div class="card bg-warning invoice-card">
                     <div class="card-body d-flex">
                         <div class="icon me-3">
                             <svg width="33px" height="32px">
@@ -78,7 +78,7 @@ Dashboard
                             <span class="text-white fs-18">Total of Rider</span>
                         </div>
                     </div>
-                    <a href="" class="btn btn-secondary">
+                    <a href="" class="btn btn-warning">
                     <span>View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -95,7 +95,7 @@ Dashboard
             <div class="col-xl-12 col-xxl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Report Sales</h4>
+                        <h4 class="card-title">Summary Sales Report</h4>
                         <div class="col-6">
                             <form method="GET">
                                 <div class="row">
@@ -112,7 +112,7 @@ Dashboard
                                         </select>
                                     </div>
                                     <div class="col-md-3 mt-2">
-                                        <button class="btn btn-sm btn-primary">Filter <i class="fa fa-filter" aria-hidden="true"></i></button>
+                                        <button class="btn btn-sm btn-dark">Filter <i class="fa fa-filter" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </form>
