@@ -1,3 +1,6 @@
+body {
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
 .links {
   position: fixed;
   z-index: 9999;
