@@ -12,37 +12,87 @@
         </a>
         <h1 class="h3 fw-normal">Create your Account</h1>
         <h1 class="h6 mb-3 fw-normal">Create an account to view and manage.</h1>
-        <div class="form-floating">
-            <input type="name" class="form-control mb-2 bg-white @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" id="floatingInput" placeholder="Input Name">
-            <label for="floatingInput">Name</label>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="name" class="form-control mb-2 bg-white @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" id="floatingInput" placeholder="Input Name">
+                    <label for="floatingInput">Name</label>
+                </div>
+                @error('name')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="email" class="form-control mb-2 bg-white @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Email address</label>
+                </div>
+                @error('email')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="date" class="form-control mb-2 bg-white @error('birthdate') is-invalid @enderror" name="birthdate" value="{{ old('birthdate') }}" required autocomplete="birthdate" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Date of Birth</label>
+                </div>
+                @error('email')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="email" class="form-control mb-2 bg-white @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Cellphone Number</label>
+                </div>
+                @error('email')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="col-12">
+                <div class="form-floating">
+                    <input type="email" class="form-control mb-2 bg-white @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Address</label>
+                </div>
+                @error('email')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="password" class="form-control mb-2 bg-white @error('password') is-invalid @enderror" name="password" required  autocomplete="new-password" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                @error('password')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="password" class="form-control bg-white" name="password_confirmation" required  autocomplete="new-password" id="floatingPasswordConfirm" placeholder="Confirm Password">
+                    <label for="floatingPasswordConfirm">Confirm Password</label>
+                </div>
+            </div>
         </div>
-        @error('name')
-            <span class="text-danger" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-        <div class="form-floating">
-            <input type="email" class="form-control mb-2 bg-white @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-        </div>
-        @error('email')
-            <span class="text-danger" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-        <div class="form-floating">
-            <input type="password" class="form-control mb-2 bg-white @error('password') is-invalid @enderror" name="password" required  autocomplete="new-password" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-        </div>
-        @error('password')
-            <span class="text-danger" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-        <div class="form-floating">
-            <input type="password" class="form-control bg-white" name="password_confirmation" required  autocomplete="new-password" id="floatingPasswordConfirm" placeholder="Confirm Password">
-            <label for="floatingPasswordConfirm">Confirm Password</label>
-        </div>
+       
         <button class="w-100 btn btn-lg btn-warning" type="submit">Sign Up</button>
         <hr>
         <a class="btn btn-link" href="{{ route('login') }}">
