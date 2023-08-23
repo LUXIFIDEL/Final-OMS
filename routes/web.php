@@ -21,6 +21,8 @@ Route::middleware('is_admin')->as('admin.')->prefix('admin')->group(function(){
         ->prefix('customer')
         ->group(function(){
             Route::get('/','index')->name('index');
+            Route::get('/show','show')->name('show');
+            
         });
 
     Route::controller(RiderController::class)

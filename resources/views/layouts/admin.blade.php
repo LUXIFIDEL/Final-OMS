@@ -8,14 +8,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <livewire:styles />
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     @stack('links')
     <link href="{{asset('vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('vendor/nouislider/nouislider.min.css')}}">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
-    <livewire:styles />
 </head>
 
 <body class="vh-100">
@@ -38,7 +37,7 @@
         @include('layouts.partials.footer')
     </div>
     @endguest
-
+    <livewire:scripts />
     <script src="{{asset('vendor/global/global.min.js')}}"></script>
 	<script src="{{asset('vendor/chartjs/chartjs.js')}}"></script>
     @stack('script')
@@ -47,6 +46,6 @@
 	<script src="{{asset('vendor/wnumb/wNumb.js')}}"></script>
     <script src="{{asset('js/custom.min.js')}}"></script>
 	<script src="{{asset('js/dlabnav-init.js')}}"></script>
-    <livewire:scripts />
+    
 </body>
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -51,9 +52,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'gender_id' => ['required', 'integer'],
-            'birthdate' => ['required', 'date_format:Y-M-D|before:today'],
-            'cellphone_number' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:11'],
+            'gender' => ['required', 'integer'],
+            'birthdate' => ['required', 'before:today'],
+            'cellphone_number' => ['required', 'regex:/^([0-9\s\-\+\(\)]*)$/','min:11','max:11'],
             'address' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -73,16 +74,13 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $customer = Customer::create([
+        $user->customer()->create([
             'user_id' => $user->id,
-            'gender_id' => $data['gender_id'],
+            'gender' => $data['gender'],
             'birthdate' => $data['birthdate'],
             'cellphone_number' => $data['cellphone_number'],
             'address' => $data['address']
         ]);
-        return [
-            $user,
-            $customer
-        ];
+        return $user;
     }
 }
