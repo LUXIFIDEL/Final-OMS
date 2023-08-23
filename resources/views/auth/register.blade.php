@@ -42,7 +42,7 @@
                     <input type="date" class="form-control mb-2 bg-white @error('birthdate') is-invalid @enderror" name="birthdate" value="{{ old('birthdate') }}" required autocomplete="birthdate" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Date of Birth</label>
                 </div>
-                @error('email')
+                @error('birthdate')
                     <span class="text-danger" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -51,22 +51,37 @@
 
             <div class="col-md-6">
                 <div class="form-floating">
-                    <input type="email" class="form-control mb-2 bg-white @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput">Cellphone Number</label>
+                    <input type="number" class="form-control mb-2 bg-white @error('cellphone_number') is-invalid @enderror" name="cellphone_number" value="{{ old('cellphone_number') }}" required autocomplete="cellphone_number" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Phone Number</label>
                 </div>
-                @error('email')
+                @error('cellphone_number')
                     <span class="text-danger" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
             </div>
 
-            <div class="col-12">
+            <div class="col-md-4">
                 <div class="form-floating">
-                    <input type="email" class="form-control mb-2 bg-white @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" id="floatingInput" placeholder="name@example.com">
+                <select class="form-select mb-2" name="gender">  
+                    <option value="0">Male</option>
+                    <option value="1">Female</option>
+                </select>
+                <label for="floatingSelect">Gender</label>
+                </div>
+                @error('gender')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            <div class="col-md-8">
+                <div class="form-floating">
+                    <input type="text" class="form-control mb-2 bg-white @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Address</label>
                 </div>
-                @error('email')
+                @error('address')
                     <span class="text-danger" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

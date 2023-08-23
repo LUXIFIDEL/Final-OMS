@@ -1,4 +1,4 @@
-<div class="dlabnav">
+<div class="dlabnav" style="z-index:999997;">
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
             <li class="dropdown header-profile">

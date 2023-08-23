@@ -75,12 +75,30 @@ Transactions Management
                                 <div class="mb-3 row">
                                     <div class="mb-3 row">
                                         <label class="col-lg-12 col-form-label" for="validationCustom01">
-                                            Expenses
+                                            Total Order
                                         </label>
                                         <div class="col-lg-12">
-                                            <input type="number" class="form-control" id="validationCustom01" name="section_name"  value="" placeholder="Enter a Expenses.." required="">
+                                            <input type="number" class="form-control" id="validationCustom01" name="section_name"  value="" placeholder="Enter a amount.." required="">
                                             <div class="invalid-feedback">
-                                                Please enter Expenses.
+                                                Please enter amount.
+                                            </div>
+                                            @error('expenses')
+                                                <small class="text-danger" role="alert">
+                                                    {{ $message }}
+                                                </small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="mb-3 row">
+                                        <label class="col-lg-12 col-form-label" for="validationCustom01">
+                                            Delivery Fee
+                                        </label>
+                                        <div class="col-lg-12">
+                                            <input type="number" class="form-control" id="validationCustom01" name="section_name"  value="" placeholder="Enter a amount.." required="">
+                                            <div class="invalid-feedback">
+                                                Please enter amount.
                                             </div>
                                             @error('expenses')
                                                 <small class="text-danger" role="alert">

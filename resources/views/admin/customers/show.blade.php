@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
 @section('title')
-Customers Management
+Customers Management - Transaction History
 @endsection
 
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
         <div class="row invoice-card-row">
-            <livewire:admin.customers />
+            <livewire:admin.show-order-history />
         </div>
     </div>
 </div>

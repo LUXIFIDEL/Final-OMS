@@ -1,53 +1,102 @@
-@foreach($user_customers->where('type','client') as $data)
-<div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
-    <div class="card bg-warning invoice-card">
-        <div class="card-body d-flex">
-            <div class="icon me-3">
-                {{-- Profile Image Here  --}}
+<div class="row">
+
+    <!-- <div class="col-md-4 mb-4">
+        <a href="" class="btn btn-md btn-primary ml-2">
+            <span class="svg-icon svg-icon-primary svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect x="0" y="0" width="24" height="24"/>
+                    <path d="M19.2078777,9.84836149 C20.3303823,11.0178941 21,12 21,12 C21,12 16.9090909,18 12,18 C11.6893441,18 11.3879033,17.9864845 11.0955026,17.9607365 L19.2078777,9.84836149 Z" fill="#000000" fill-rule="nonzero"/>
+                    <path d="M14.5051465,6.49485351 L12,9 C10.3431458,9 9,10.3431458 9,12 L5.52661464,15.4733854 C3.75006453,13.8334911 3,12 3,12 C3,12 5.45454545,6 12,6 C12.8665422,6 13.7075911,6.18695134 14.5051465,6.49485351 Z" fill="#000000" fill-rule="nonzero"/>
+                    <rect fill="#000000" opacity="0.3" transform="translate(12.524621, 12.424621) rotate(-45.000000) translate(-12.524621, -12.424621) " x="3.02462111" y="11.4246212" width="19" height="2"/>
+                </g>
+            </svg></span>
+        </a>
+        <a href="" class="btn btn-md btn-primary ml-2">
+            <span class="svg-icon svg-icon-primary svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
+                </g>
+            </svg></span>
+        </a>
+    </div> -->
+    <div class="col-md-12">
+        <form action="" method="GET">
+            <div class="input-group search-area mb-2">
+                <input wire:model.debounce.500ms="search" type="text" class="form-control" name="search" value="" placeholder="Search here Name or Email Address...">
+                <span class="input-group-text"><a><i class="flaticon-381-search-2"></i></a></span>
             </div>
-            <div>
-                <h2 class="text-white fs-20">{{$data->name}}</h2>
-                <span class="text-white fs-10">Email: {{$data->email}}</span> <br>
-                <span class="text-white fs-10">CP: {{$data->cellphone_number}}</span> <br>
-                <span class="text-white fs-10">Date of Birth: {{$data->birthdate}}</span>  <br>
-                <span class="text-white fs-10">Gender: {{$data->gender ?? ''}}</span>  <br>
-                <span class="text-white fs-10">Address: {{$data->address}}</span>  <br>
+        </form>
+    </div>
+    @forelse($user_customers->where('type','client') as $data)
+    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+   
+        <div class="card bg-warning invoice-card">
+            <!-- <div class="ms-auto pe-3 pt-2" style="z-index:999">
+                <input type="checkbox" name="" id="">
+            </div> -->
+            <div class="card-body d-flex">
+            
+                <div class="icon me-3">
+                    {{-- Profile Image Here  --}}
+                </div>
+                <div>
+                    <h2 class="fs-20">{{$data->name}}</h2>
+                    <!-- <span class="text-white fs-10">Email: {{$data->email}}</span> <br>
+                    
+                    <span class="text-white fs-10">Date of Birth: {{$data->birthdate}}</span>  <br>
+                    <span class="text-white fs-10">Gender: {{$data->gender ?? ''}}</span>  <br> -->
+                    <span class="text-white fs-10">Address: {{$data->address}}</span>  <br>
+                    <span class="text-white fs-10">CP: (+63){{$data->cellphone_number}}</span> <br>
+                </div>
+                
             </div>
-        </div>
-        <div class="d-flex gap-1 justify-content-center" style="z-index:9999;">
-            <a href="" class="btn btn-warning">
-                <span class="svg-icon svg-icon-primary svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"/>
-                        <path d="M3,12 C3,12 5.45454545,6 12,6 C16.9090909,6 21,12 21,12 C21,12 16.9090909,18 12,18 C5.45454545,18 3,12 3,12 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-                        <path d="M12,15 C10.3431458,15 9,13.6568542 9,12 C9,10.3431458 10.3431458,9 12,9 C13.6568542,9 15,10.3431458 15,12 C15,13.6568542 13.6568542,15 12,15 Z" fill="#000000" opacity="0.3"/>
-                    </g>
-                </svg></span>
-            </a>
-            <a href="" class="btn btn-warning">
-                <span class="svg-icon svg-icon-primary svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"/>
-                        <polygon fill="#000000" opacity="0.3" points="5 15 3 21.5 9.5 19.5"/>
-                        <path d="M13.5,21 C8.25329488,21 4,16.7467051 4,11.5 C4,6.25329488 8.25329488,2 13.5,2 C18.7467051,2 23,6.25329488 23,11.5 C23,16.7467051 18.7467051,21 13.5,21 Z M8.5,13 C9.32842712,13 10,12.3284271 10,11.5 C10,10.6715729 9.32842712,10 8.5,10 C7.67157288,10 7,10.6715729 7,11.5 C7,12.3284271 7.67157288,13 8.5,13 Z M13.5,13 C14.3284271,13 15,12.3284271 15,11.5 C15,10.6715729 14.3284271,10 13.5,10 C12.6715729,10 12,10.6715729 12,11.5 C12,12.3284271 12.6715729,13 13.5,13 Z M18.5,13 C19.3284271,13 20,12.3284271 20,11.5 C20,10.6715729 19.3284271,10 18.5,10 C17.6715729,10 17,10.6715729 17,11.5 C17,12.3284271 17.6715729,13 18.5,13 Z" fill="#000000"/>
-                    </g>
-                </svg></span>
-            </a>
-            <a href="" class="btn btn-warning">
-                <span class="svg-icon svg-icon-primary svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <rect x="0" y="0" width="24" height="24"/>
-                        <path d="M4,7 L20,7 L20,19.5 C20,20.3284271 19.3284271,21 18.5,21 L5.5,21 C4.67157288,21 4,20.3284271 4,19.5 L4,7 Z M10,10 C9.44771525,10 9,10.4477153 9,11 C9,11.5522847 9.44771525,12 10,12 L14,12 C14.5522847,12 15,11.5522847 15,11 C15,10.4477153 14.5522847,10 14,10 L10,10 Z" fill="#000000"/>
-                        <rect fill="#000000" opacity="0.3" x="2" y="3" width="20" height="4" rx="1"/>
-                    </g>
-                </svg></span>
-            </a>
+            <div class="d-flex gap-1 justify-content-center" style="z-index:10;">
+                <a href="{{route('admin.customer.show')}}" class="btn btn-warning">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </a>
+                <a href="" class="btn btn-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span class="badge bg-primary">4</span>
+                </a>
+                <a href="" class="btn btn-warning" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                </a>
+            </div>
+            
         </div>
     </div>
-</div>
-@endforeach
-<div class="mt-2">
-{{ $user_customers->links() }}
+    @empty
+    <div class="row">
+
+        <div class="alert alert-danger text-center" role="alert">
+            <span class="w-100 bold">No Data Found!</span>
+        </div>
+
+    </div>
+    @endforelse
+
+    {{ $user_customers->links() }}
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Deleting data?..</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#d0021b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>    
+            Are you sure you want to delete this data?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Yes</button>
+        </div>
+        </div>
+    </div>
+    </div>
 </div>
 
             
