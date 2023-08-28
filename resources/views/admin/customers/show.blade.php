@@ -8,7 +8,7 @@ Customers Management - Transaction History
 <div class="content-body">
     <div class="container-fluid">
         <div class="row invoice-card-row">
-            <livewire:admin.show-order-history />
+            <livewire:customers.show-order-history />
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Transactions Management
+Expenses Management
 @endsection
 
 @push('links')
@@ -10,9 +10,11 @@ Transactions Management
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
-      <livewire:transactions.transactions />
+        
+      <livewire:expenses.expenses />
     </div>
 </div>
+
 @endsection
 
 @push('script')
