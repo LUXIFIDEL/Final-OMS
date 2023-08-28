@@ -1,24 +1,5 @@
 <div class="row">
 
-    <!-- <div class="col-md-4 mb-4">
-        <a href="" class="btn btn-md btn-primary ml-2">
-            <span class="svg-icon svg-icon-primary svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <rect x="0" y="0" width="24" height="24"/>
-                    <path d="M19.2078777,9.84836149 C20.3303823,11.0178941 21,12 21,12 C21,12 16.9090909,18 12,18 C11.6893441,18 11.3879033,17.9864845 11.0955026,17.9607365 L19.2078777,9.84836149 Z" fill="#000000" fill-rule="nonzero"/>
-                    <path d="M14.5051465,6.49485351 L12,9 C10.3431458,9 9,10.3431458 9,12 L5.52661464,15.4733854 C3.75006453,13.8334911 3,12 3,12 C3,12 5.45454545,6 12,6 C12.8665422,6 13.7075911,6.18695134 14.5051465,6.49485351 Z" fill="#000000" fill-rule="nonzero"/>
-                    <rect fill="#000000" opacity="0.3" transform="translate(12.524621, 12.424621) rotate(-45.000000) translate(-12.524621, -12.424621) " x="3.02462111" y="11.4246212" width="19" height="2"/>
-                </g>
-            </svg></span>
-        </a>
-        <a href="" class="btn btn-md btn-primary ml-2">
-            <span class="svg-icon svg-icon-primary svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
-                </g>
-            </svg></span>
-        </a>
-    </div> -->
     <div class="col-md-12">
         <form action="" method="GET">
             <div class="input-group search-area mb-2">
@@ -45,8 +26,8 @@
                     
                     <span class="text-white fs-10">Date of Birth: {{$data->birthdate}}</span>  <br>
                     <span class="text-white fs-10">Gender: {{$data->gender ?? ''}}</span>  <br> -->
-                    <span class="text-white fs-10">Address: {{$data->address}}</span>  <br>
-                    <span class="text-white fs-10">CP: (+63){{$data->cellphone_number}}</span> <br>
+                    <span class="text-black fs-10">Address: {{$data->address}}</span>  <br>
+                    <span class="text-black fs-10">CP: (+63){{$data->cellphone_number}}</span> <br>
                 </div>
                 
             </div>
@@ -77,7 +58,6 @@
 
     {{ $user_customers->links() }}
 
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -98,5 +78,3 @@
     </div>
     </div>
 </div>
-
-            

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Customers;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class ShowOrderHistory extends Component
 {
     public function render()
     {
-        return view('livewire.admin.show-order-history');
+        return view('livewire.customers.show-order-history');
     }
 }

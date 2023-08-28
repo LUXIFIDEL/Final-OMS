@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{HomeController,CustomerController,RiderController,TransactionController};
+use App\Http\Controllers\{HomeController,CustomerController,RiderController,TransactionController,ExpensesController,SalesController};
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +35,20 @@ Route::middleware('is_admin')->as('admin.')->prefix('admin')->group(function(){
     Route::controller(TransactionController::class)
         ->as('transaction.')
         ->prefix('transaction')
+        ->group(function(){
+            Route::get('/','index')->name('index');
+        });
+
+    Route::controller(ExpensesController::class)
+        ->as('expenses.')
+        ->prefix('expenses')
+        ->group(function(){
+            Route::get('/','index')->name('index');
+        });
+
+    Route::controller(SalesController::class)
+        ->as('sales.')
+        ->prefix('sales')
         ->group(function(){
             Route::get('/','index')->name('index');
         });

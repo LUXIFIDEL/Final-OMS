@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Customers;
 
 use Livewire\Component;
 use App\Models\{User,Customer};
@@ -34,7 +34,7 @@ class Customers extends Component
 
             return $new_item;
         });
-        return view('livewire.admin.customers',['user_customers' => $user_customers]);
+        return view('livewire.customers.customers',['user_customers' => $user_customers]);
       
     }
 
