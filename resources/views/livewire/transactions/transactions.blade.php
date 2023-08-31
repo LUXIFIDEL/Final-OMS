@@ -1,13 +1,5 @@
-  
 <div class="row">
-    <div class="col-md-12">
-        <form action="" method="GET">
-            <div class="input-group search-area mb-2">
-                <input wire:model.debounce.500ms="search" type="text" class="form-control" name="search" value="" placeholder="Search here...">
-                <span class="input-group-text"><a><i class="flaticon-381-search-2"></i></a></span>
-            </div>
-        </form>
-    </div>
+   
     <div class="col-md-4">
         <div class="form-validation">
             <form action="" method="POST" class="needs-validation" novalidate="">
@@ -120,7 +112,7 @@
             <div class="card-header p-2">
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a class="nav-link active" href="#all" data-toggle="tab">All</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pen" data-toggle="tab">Pendeng</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pen" data-toggle="tab">Pending</a></li>
                     <li class="nav-item"><a class="nav-link" href="#pro" data-toggle="tab">In-Processing</a></li>
                     <li class="nav-item"><a class="nav-link" href="#oinfo" data-toggle="tab">Completed</a></li>
                     <li class="nav-item"><a class="nav-link" href="#oinfo" data-toggle="tab">Canceled</a></li>
@@ -140,7 +132,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- Data Here --}}
+                            
                         </tbody>
                         <tfoot>
                             <tr>

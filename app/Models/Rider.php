@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Rider extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'birthdate',
+        'cellphone_number',
+    ];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id');
+    }
 }

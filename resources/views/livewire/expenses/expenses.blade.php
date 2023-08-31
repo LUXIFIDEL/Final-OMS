@@ -1,13 +1,4 @@
 <div class="row">
-    <div class="col-md-12">
-        <form action="" method="GET">
-            <div class="input-group search-area mb-2">
-                <input wire:model.debounce.500ms="search" type="text" class="form-control" name="search" value="" placeholder="Search here...">
-                <span class="input-group-text"><a><i class="flaticon-381-search-2"></i></a></span>
-            </div>
-        </form>
-    </div>
-    
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">

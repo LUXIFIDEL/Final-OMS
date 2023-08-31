@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('riders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->date('birthdate');
+            $table->decimal('cellphone_number', 12, 0);
+            $table->tinyInteger('is_not_available')->default(0);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
