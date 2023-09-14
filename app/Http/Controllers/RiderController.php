@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class RiderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,20 @@ class RiderController extends Controller
      */
     public function index()
     {
-        return view('admin.riders.index');
+        switch (auth()->user()->type) {
+            case "admin":
+                return view('admin.riders.index');
+                break;
+            case "client":
+
+                break;
+            case "rider":
+
+                break;
+            case "teller":
+                return view('teller.riders.index');
+                break;
+            }
     }
 
     /**

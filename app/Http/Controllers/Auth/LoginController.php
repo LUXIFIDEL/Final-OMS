@@ -55,7 +55,7 @@ class LoginController extends Controller
                 return redirect()->route('admin.home');
                 break;
             case "client":
-                return redirect()->route('home');
+                return redirect()->route('client.home');
                 break;
             case "rider":
                 return redirect()->route('rider.home');

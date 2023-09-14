@@ -1,5 +1,5 @@
 <div class="nav-header" style="z-index:999999;">
-    <a href="{{route('home')}}" class="text-dark brand-logo">
+    <a href="" class="text-dark brand-logo">
         <img src="{{asset('/image/Moonride-Logo.jpg')}}" class="rounded-circle" alt="" height="70">
     </a>
     <div class="nav-control">
@@ -19,6 +19,7 @@
                 </div>
                 
                 <ul class="navbar-nav header-right">
+                    @if(auth()->user()->type == 'client')
                     <li class="nav-item">
                         <a href="" class="btn btn-md rounded-circle btn-warning position-relative p-1">
                             <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/General/Notifications1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -29,23 +30,20 @@
                             </svg><!--end::Svg Icon--></span>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 99+
-                                <span class="visually-hidden">unread messages</span>
                             </span>
                         </a>
                     </li>
+                    @endif
                     <li class="nav-item">
-                        <a href="" class="btn btn-md rounded-circle p-2">
+                        <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" class="btn btn-md rounded-circle p-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#d0021b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
                         </a>
-                    </li>
-                    <!-- <li class="nav-item">
-                        <form action="" method="GET">
-                            <div class="input-group search-area">
-                                <input type="text" class="form-control" name="search" value="" placeholder="Search here...">
-                                <span class="input-group-text"><a><i class="flaticon-381-search-2"></i></a></span>
-                            </div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
                         </form>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
         </nav>

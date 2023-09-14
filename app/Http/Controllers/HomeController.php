@@ -3,24 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Rider;
+
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+   
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         return view('home');
@@ -28,16 +22,37 @@ class HomeController extends Controller
 
     public function adminHome()
     {
-        return view('adminHome');
+        return view('adminHome', [
+            'customer_count' => User::where('type','client')->count(),
+            'rider_count' => User::where('type','rider')->count(),
+        ]);
     }
 
     public function riderHome()
     {
-        return view('riderHome');
+        return view('riders.home');
     }
 
     public function tellerHome()
     {
         return view('tellerHome');
+    }
+
+    public function redirectHome()
+    {
+        switch (auth()->user()->type) {
+            case "admin":
+                return redirect()->route('admin.home');
+                break;
+            case "client":
+                return redirect()->route('client.home');
+                break;
+            case "rider":
+                return redirect()->route('riders.home');
+                break;
+            case "teller":
+                return redirect()->route('teller.home');
+                break;
+        }
     }
 }

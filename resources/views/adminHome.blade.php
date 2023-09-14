@@ -19,12 +19,12 @@ Dashboard
                             
                         </div>
                         <div>
-                            <h2 class="text-black invoice-num"></h2>
+                            <h2 class="text-black invoice-num">{{ $customer_count }}</h2>
                             <span class="text-black fs-18">Total of Customer</span>
                         </div>
 
                     </div>
-                    <a href="" class="btn btn-warning">
+                    <a href="{{route('admin.customer.index')}}" class="btn btn-warning">
                     <span class="text-black">View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -74,7 +74,7 @@ Dashboard
                         
                         </div>
                         <div>
-                            <h2 class="text-black invoice-num"></h2>
+                            <h2 class="text-black invoice-num">{{ $rider_count }}</h2>
                             <span class="text-black fs-18">Total of Rider</span>
                         </div>
                     </div>

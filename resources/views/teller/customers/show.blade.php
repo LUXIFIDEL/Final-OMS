@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.teller')
 
 @section('title')
 Customers Management - Transaction History

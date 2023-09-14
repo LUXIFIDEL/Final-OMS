@@ -21,7 +21,7 @@ class IsAdmin
             return $next($request);
             break;
         case "client":
-            return redirect('home')->with('error',"You don't have admin access.");
+            return redirect('client/home')->with('error',"You don't have admin access.");
             break;
         case "rider":
             return redirect('rider/home')->with('error',"You don't have admin access.");

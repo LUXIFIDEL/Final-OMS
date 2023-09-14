@@ -31,13 +31,13 @@ class CreateUsersSeeder extends Seeder
             [
                 'name'=>'Rider',
                 'email'=>'rider@example.com',
-                 'type'=>'4',
+                 'type'=>'3',
                 'password'=> bcrypt('123456'),
              ],
              [
                 'name'=>'Teller',
                 'email'=>'teller@example.com',
-                 'type'=>'3',
+                 'type'=>'2',
                 'password'=> bcrypt('123456'),
              ],
         ];

@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class SalesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +17,20 @@ class SalesController extends Controller
      */
     public function index()
     {
-        return view('admin.sales.index');
+        switch (auth()->user()->type) {
+            case "admin":
+                return view('admin.sales.index');
+                break;
+            case "client":
+
+                break;
+            case "rider":
+
+                break;
+            case "teller":
+                return view('tellerHome');
+                break;
+            }
     }
 
     /**

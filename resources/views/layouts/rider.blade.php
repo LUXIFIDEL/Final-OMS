@@ -32,7 +32,7 @@
     @else
     <div id="main-wrapper">
         @include('layouts.partials.navheader')
-        @include('layouts.partials.admin.sidebar')
+        @include('layouts.partials.rider.sidebar')
             @yield('content')
         @include('layouts.partials.footer')
     </div>
