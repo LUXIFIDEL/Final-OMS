@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{HomeController,CustomerController,RiderController,TransactionController,ExpensesController,SalesController,UserController,ProfileController};
+use App\Http\Controllers\{HomeController,CustomerController,RiderController,TransactionController,ExpensesController,SalesController,UserController,ProfileController,MessageController};
 
 Route::get('/', function () {
     return view('welcome');
@@ -78,8 +78,13 @@ Route::middleware('is_rider')->as('rider.')->prefix('rider')->group(function(){
 
 Route::middleware('is_client')->as('client.')->prefix('client')->group(function(){
     Route::get('home', [HomeController::class, 'index'])->name('home');
-    
-
+    Route::controller(TransactionController::class)
+        ->as('transaction.')
+        ->prefix('transaction')
+        ->group(function(){
+            Route::post('/store','store')->name('store');
+        });
+    Route::get('/msg/{transno}/{str}', [MessageController::class, 'index'])->name('msg');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/update/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');

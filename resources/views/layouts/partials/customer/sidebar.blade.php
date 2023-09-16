@@ -40,7 +40,7 @@
                             <rect fill="#000000" opacity="0.3" x="2" y="10" width="5" height="10" rx="1"/>
                         </g>
                     </svg><!--end::Svg Icon--></span>
-                    <span class="nav-text">Transaction Form</span>
+                    <span class="nav-text">Transaction</span>
                 </a>
             </li>
             

@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('trans_no');
+            $table->unsignedBigInteger('user_id');
+            $table->string('status')->default('Pending');
+            $table->string('order');
+            $table->string('prin_amount')->nullable();
+            $table->string('delivery_fee')->nullable();
+            $table->string('feedback_status')->default('0');
+            $table->string('feedback_msg')->nullable();
+            $table->string('rating')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

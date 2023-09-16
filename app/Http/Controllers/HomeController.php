@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Rider;
+use App\Models\{User,Customer,Rider,Transaction};
 
 
 class HomeController extends Controller
@@ -17,7 +16,10 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home');
+        return view('home', [
+            'get_customer' => Customer::where('user_id',auth()->user()->id)->first(),
+            'get_transaction' => Transaction::where('user_id',auth()->user()->id)->get(),
+        ]);
     }
 
     public function adminHome()

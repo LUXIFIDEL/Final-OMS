@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{User,Customer,Rider,Transaction};
+use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
@@ -10,91 +12,69 @@ class TransactionController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
+        $customer = Transaction::where('user_id',auth()->user()->id)->all();
         switch (auth()->user()->type) {
-            case "admin":
-                return view('admin.transactions.index');
-                break;
-            case "client":
+        case "admin":
+            return view('admin.transactions.index');
+            break;
+        case "rider":
+            break;
+        case "teller":
+            return view('teller.transactions.index');
+            break;
+        }
+    }
 
-                break;
-            case "rider":
+    public function store(Request $request)
+    {
+        switch (auth()->user()->type) {
+        case "admin":
+            return view('admin.transactions.index');
+            break;
+        case "rider":
 
-                break;
-            case "teller":
-                return view('teller.transactions.index');
-                break;
-            }
+            break;
+        case "client":
+            $request->validate([
+                'order_msg' => 'required|max:255',
+            ]);
+            $now = Carbon::now();
+            $datePart = $now->format('Ymd');
+            $timePart = $now->format('His');
+            $gentransno = $datePart . $timePart;
+            Transaction::create([
+                'trans_no' => $gentransno,
+                'user_id' => auth()->user()->id,
+                'order' => $request->order_msg,
+            ]);
+            return redirect()->route('client.msg',['transno'=>$gentransno,'str'=>'success']);
+            break;
+        case "teller":
+            return view('teller.transactions.index');
+            break;
+        }
+
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
