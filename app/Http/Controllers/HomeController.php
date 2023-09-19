@@ -16,10 +16,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('home', [
-            'get_customer' => Customer::where('user_id',auth()->user()->id)->first(),
-            'get_transaction' => Transaction::where('user_id',auth()->user()->id)->get(),
-        ]);
+        return view('home');
     }
 
     public function adminHome()
@@ -37,7 +34,11 @@ class HomeController extends Controller
 
     public function tellerHome()
     {
-        return view('tellerHome');
+        return view('tellerHome',[
+            'count_transaction' => Transaction::get(),
+            'customer_count' => User::where('type','client')->count(),
+            'rider_count' => User::where('type','rider')->count(),
+        ]);
     }
 
     public function redirectHome()

@@ -67,6 +67,10 @@ Route::middleware('is_teller')->as('teller.')->prefix('teller')->group(function(
         ->prefix('transaction')
         ->group(function(){
             Route::get('/','index')->name('index');
+            Route::put('/status/ca','changeCancelledStatus')->name('update_status');
+            Route::get('/selected/{id}','edit')->name('edit');
+            Route::put('/update/{id}','update')->name('update');
+            Route::put('/status/co','changeCompletedStatus')->name('update_co');
         });
 
 });
@@ -78,11 +82,15 @@ Route::middleware('is_rider')->as('rider.')->prefix('rider')->group(function(){
 
 Route::middleware('is_client')->as('client.')->prefix('client')->group(function(){
     Route::get('home', [HomeController::class, 'index'])->name('home');
+
     Route::controller(TransactionController::class)
         ->as('transaction.')
         ->prefix('transaction')
         ->group(function(){
+            Route::get('/','index')->name('index');
+            Route::get('/create','create')->name('create');
             Route::post('/store','store')->name('store');
+            Route::put('/change-status','changeCancelledStatus')->name('update_status');
         });
     Route::get('/msg/{transno}/{str}', [MessageController::class, 'index'])->name('msg');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

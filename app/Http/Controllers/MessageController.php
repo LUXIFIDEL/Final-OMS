@@ -18,8 +18,28 @@ class MessageController extends Controller
                 }
                 break;
             case 'error':
+                $trans = Transaction::where('trans_no',$transno)->first();
+                if($trans){
+                    return view('message.error',['transno' => $transno]);
+                }else{
+                    abort(404);
+                }
                 break;
             case 'warning':
+                $trans = Transaction::where('trans_no',$transno)->first();
+                if($trans){
+                    return view('message.warning',['transno' => $transno]);
+                }else{
+                    abort(404);
+                }
+                break;
+            case 'cancel':
+                $trans = Transaction::where('trans_no',$transno)->first();
+                if($trans){
+                    return view('message.cancel',['transno' => $transno]);
+                }else{
+                    abort(404);
+                }
                 break;
         }
     }

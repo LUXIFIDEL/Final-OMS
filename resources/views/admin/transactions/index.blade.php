@@ -132,20 +132,20 @@ Transactions Management
             <div class="card">
                 <div class="card-header p-2">
 
-                  <ul class="nav nav-tabs pt-2" id="myTab" role="tablist">
-                      <li class="nav-item" role="presentation">
-                          <button class="nav-link active" id="pen-tab" data-bs-toggle="tab" data-bs-target="#pen" type="button" role="tab" aria-controls="pen" aria-selected="true">Pending</button>
-                      </li>
-                      <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pro-tab" data-bs-toggle="tab" data-bs-target="#pro" type="button" role="tab" aria-controls="pro" aria-selected="false">In-Processing</button>
-                      </li>
-                      <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="oinfo-tab" data-bs-toggle="tab" data-bs-target="#oinfo" type="button" role="tab" aria-controls="oinfo" aria-selected="false">Completed</button>
-                      </li>
-                      <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="can-tab" data-bs-toggle="tab" data-bs-target="#can" type="button" role="tab" aria-controls="can" aria-selected="false">Canceled</button>
-                      </li>
-                  </ul>
+                <ul class="nav nav-pills gap-2 nav-fill pt-2 mx-auto"  role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pen-tab" data-bs-toggle="tab" data-bs-target="#pen" type="button" role="tab" aria-controls="pen" aria-selected="true"><i class="fa fa-clock" aria-hidden="true"></i> Pending</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pro-tab" data-bs-toggle="tab" data-bs-target="#pro" type="button" role="tab" aria-controls="pro" aria-selected="false"><i class="fa fa-spinner" aria-hidden="true"></i>  In-Processing</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="oinfo-tab" data-bs-toggle="tab" data-bs-target="#oinfo" type="button" role="tab" aria-controls="oinfo" aria-selected="false"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="can-tab" data-bs-toggle="tab" data-bs-target="#can" type="button" role="tab" aria-controls="can" aria-selected="false"><i class="fa fa-ban" aria-hidden="true"></i> Canceled</button>
+                    </li>
+                </ul>
                    
                 </div><!-- /.card-header -->
                 <div class="tab-content" id="myTabContent">

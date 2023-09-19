@@ -19,7 +19,14 @@ class Transaction extends Model
         'feedback_status',
         'feedback_msg',
         'rating',
+        'reason',
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
+    public function assign_rider_transaction(){
+        return $this->hasMany(AssignRiderTransaction::class);
+    }
 }

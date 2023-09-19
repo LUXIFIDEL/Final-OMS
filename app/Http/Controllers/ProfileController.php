@@ -43,15 +43,50 @@ class ProfileController extends Controller
             $path = $request->file('image')->storeAs('public/user_profile/',$fileToStore);
         }
 
-        $user = User::findOrFail(auth()->user()->id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        if(isset($fileToStore)){
-            $user->image = $fileToStore;
+        switch (auth()->user()->type) {
+        case "admin":
+            $user = User::findOrFail(auth()->user()->id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            if(isset($fileToStore)){
+                $user->image = $fileToStore;
+            }
+            $user->update();
+            
+            return back()->with('success','Profile successfully updated!');
+            break;
+        case "client":
+            $request->validate([
+                'name' => 'required|max:255',
+                'email' => 'required|max:255',
+                'address' => 'required|max:255',
+                'dob' => 'required|max:255',
+                'contact' => 'required|max:255',
+            ]);
+
+            $user = User::findOrFail(auth()->user()->id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->customer()->update([
+                'address' => $request->address,
+                'birthdate' => $request->dob,
+                'cellphone_number' => $request->contact,
+            ]);
+            if(isset($fileToStore)){
+                $user->image = $fileToStore;
+            }
+            $user->update();
+            
+            return back()->with('success','Profile successfully updated!');
+            break;
+        case "rider":
+            return view('rider.profile.index');
+            break;
+        case "teller":
+            return view('teller.profile.index');
+            break;
         }
-        $user->update();
-        
-        return back()->with('success','Profile successfully updated!');
+       
     }
 
 

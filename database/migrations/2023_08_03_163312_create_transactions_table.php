@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('feedback_status')->default('0');
             $table->string('feedback_msg')->nullable();
             $table->string('rating')->nullable();
+            $table->string('reason')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

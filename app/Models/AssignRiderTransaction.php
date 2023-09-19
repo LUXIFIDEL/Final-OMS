@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class AssignRiderTransaction extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'transaction_id',
+        'riders_id',
+    ];
 }
