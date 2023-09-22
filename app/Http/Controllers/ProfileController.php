@@ -16,7 +16,7 @@ class ProfileController extends Controller
 
     public function index()
     {
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
         case "admin":
             return view('admin.profile.index');
             break;
@@ -43,7 +43,7 @@ class ProfileController extends Controller
             $path = $request->file('image')->storeAs('public/user_profile/',$fileToStore);
         }
 
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
         case "admin":
             $user = User::findOrFail(auth()->user()->id);
             $user->name = $request->name;
@@ -80,7 +80,25 @@ class ProfileController extends Controller
             return back()->with('success','Profile successfully updated!');
             break;
         case "rider":
-            return view('rider.profile.index');
+            $request->validate([
+                'name' => 'required|max:255',
+                'email' => 'required|max:255',
+                'dob' => 'required|max:255',
+                'contact' => 'required|max:255',
+            ]);
+            $user = User::findOrFail(auth()->user()->id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->rider()->update([
+                'birthdate' => $request->dob,
+                'cellphone_number' => $request->contact,
+            ]);
+            if(isset($fileToStore)){
+                $user->image = $fileToStore;
+            }
+            $user->update();
+            
+            return back()->with('success','Profile successfully updated!');
             break;
         case "teller":
             return view('teller.profile.index');

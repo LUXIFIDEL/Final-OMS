@@ -44,7 +44,7 @@
                                     <td><span class="text-danger">Pending</span></td>
                                     <td>
                                     <div class="d-flex">
-                                        <a href="{{route('teller.transaction.edit', $data->id)}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                        <a href="{{route('admin.transaction.edit', $data->id)}}" class="btn btn-success shadow btn-xs sharp me-1">
                                             <i class="fas fa-thumbs-up"></i>
                                         </a>
 
@@ -97,7 +97,7 @@
                                 @foreach($get_user->where('id',$data->user_id)->take(1) as $data_user)
                                 <td>{{$data_user->name}}</td>
                                 @endforeach
-                                @foreach($data->assign_rider_transaction->take(1) as $data_rider_id)
+                                @foreach($data->assign_rider_transaction as $data_rider_id)
                                     @foreach($get_rider->where('id',$data_rider_id->riders_id)->take(1) as $data_user_id)
                                     <td>{{$data_user_id->user->name}}</td>
                                     @endforeach
@@ -113,7 +113,7 @@
                                             <i class="fas fa-check"></i>
                                         </a>
 
-                                        <a href="{{route('teller.transaction.edit', $data->id)}}" 
+                                        <a href="{{route('admin.transaction.edit', $data->id)}}" 
                                             class="btn btn-secondary shadow btn-xs sharp me-1">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
@@ -183,8 +183,19 @@
                                         <div class="d-flex">
                                             <a class="btn btn-success shadow btn-xs sharp me-1"
                                                 data-bs-toggle="modal" 
-                                                data-bs-target="#coModal"
-                                                id="{{$data->id}}">
+                                                data-bs-target="#feedModal"
+                                                id="{{$data->id}}"
+                                                trans_no="{{$data->trans_no}}"
+                                                @foreach($get_user->where('id',$data->user_id)->take(1) as $data_user)
+                                                customer="{{$data_user->name}}"
+                                                @endforeach
+                                                @foreach($get_customer->where('user_id',$data->user_id)->take(1) as $data_customer)
+                                                address="{{$data_customer->address ?? 'N/A'}}"
+                                                @endforeach
+                                                prin_amount="{{$data->prin_amount ?? '0'}}"
+                                                delivery_fee="{{$data->delivery_fee ?? '0'}}"
+                                                feedback="{{$data->feedback_msg ?? 'N/A'}}"
+                                                order="{{$data->order}}">
                                                 <i class="fas fa-comment"></i>
                                             </a>
 

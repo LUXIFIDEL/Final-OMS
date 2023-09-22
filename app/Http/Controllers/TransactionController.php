@@ -15,16 +15,28 @@ class TransactionController extends Controller
 
     public function index()
     {
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
         case "admin":
-            return view('admin.transactions.index');
+            return view('admin.transactions.index',[
+                'get_rider' => Rider::with('user')->get(),
+                'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                'get_user' => User::get(),
+                'get_customer' => Customer::get(),
+            ]);
         case "client":
             return view('customer.orderstatus',[
                 'get_customer' => Customer::where('user_id',auth()->user()->id)->first(),
                 'get_transaction' => Transaction::where('user_id',auth()->user()->id)->get(),
             ]);
             break;
-
+        case "rider":
+            return view('riders.oderstatus',[
+                'get_rider' => Rider::with('user')->findOrFail(auth()->user()->id),
+                'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                'get_user' => User::get(),
+                'get_customer' => Customer::get(),
+            ]);
+            break;
         case "teller":
             return view('teller.transactions.index',[
                 'get_rider' => Rider::with('user')->get(),
@@ -38,7 +50,7 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
         case "admin":
             return view('admin.transactions.index');
             break;
@@ -88,7 +100,6 @@ class TransactionController extends Controller
             break;
         }
 
-        
     }
 
     public function changeCancelledStatus(Request $request){
@@ -126,40 +137,56 @@ class TransactionController extends Controller
 
     public function edit($id)
     {
+        
         $gen_trans_select = Transaction::with('user')->findOrFail($id);
-        return view('teller.transactions.edit',[
-            'gen_trans_select' => $gen_trans_select,
-            'get_rider' => Rider::with('user')->get(),
-            'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
-            'get_user' => User::get(),
-            'get_customer' => Customer::get(),
-        ]);
+        switch (auth()->user()->role) {
+            case "admin":
+                return view('admin.transactions.edit',[
+                    'gen_trans_select' => $gen_trans_select,
+                    'get_rider' => Rider::with('user')->get(),
+                    'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                    'get_user' => User::get(),
+                    'get_customer' => Customer::get(),
+                ]);
+                break;
+            case "teller":
+                return view('teller.transactions.edit',[
+                    'gen_trans_select' => $gen_trans_select,
+                    'get_rider' => Rider::with('user')->get(),
+                    'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                    'get_user' => User::get(),
+                    'get_customer' => Customer::get(),
+                ]);
+                break;
+            }
     }
 
     public function update(Request $request, $id)
     {
-        switch (auth()->user()->type) {
-            case "admin":
-                return view('admin.transactions.index');
-            case "teller":
-                $request->validate([
-                    'rider' => 'required|max:255',
-                    'order' => 'required|max:255',
-                    'amount' => 'nullable|max:255',
-                    'delivery_fee' => 'required|max:255',
-                ]);
+        $request->validate([
+            'rider' => 'required|max:255',
+            'order' => 'required|max:255',
+            'amount' => 'nullable|max:255',
+            'delivery_fee' => 'required|max:255',
+        ]);
 
-                $gentransno = Transaction::findOrFail($id);
-                $gentransno->update([
-                    'order' => $request->order,
-                    'prin_amount' => $request->amount,
-                    'delivery_fee' => $request->delivery_fee,
-                    'status' => 'Inprocess',
-                ]);
-                $gentransno->assign_rider_transaction()->create([
-                    'riders_id' => $request->rider,
-                ]);
-                //API Notification here
+        $gentransno = Transaction::findOrFail($id);
+        $gentransno->update([
+            'order' => $request->order,
+            'prin_amount' => $request->amount,
+            'delivery_fee' => $request->delivery_fee,
+            'status' => 'Inprocess',
+        ]);
+        $gentransno->assign_rider_transaction()->create([
+            'riders_id' => $request->rider,
+        ]);
+        switch (auth()->user()->role) {
+            case "admin":
+                return redirect()
+                        ->route('admin.transaction.index',['status_active' => 'inprocess'])
+                        ->with('message','Successfully Approved!');
+
+            case "teller":
                 return redirect()
                         ->route('teller.transaction.index',['status_active' => 'inprocess'])
                         ->with('message','Successfully Approved!');

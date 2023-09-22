@@ -22,11 +22,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'type',
+        'role',
         'image',
     ];
 
-    protected function type(): Attribute
+    protected function role(): Attribute
     {
         return new Attribute(
             get: fn ($value) => ["client", "admin", "teller", "rider"][$value],

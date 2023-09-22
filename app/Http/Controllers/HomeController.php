@@ -22,28 +22,28 @@ class HomeController extends Controller
     public function adminHome()
     {
         return view('adminHome', [
-            'customer_count' => User::where('type','client')->count(),
-            'rider_count' => User::where('type','rider')->count(),
+            'customer_count' => User::where('role','client')->count(),
+            'rider_count' => User::where('role','rider')->count(),
         ]);
     }
 
     public function riderHome()
     {
-        return view('riders.home');
+        return view('riderHome');
     }
 
     public function tellerHome()
     {
         return view('tellerHome',[
             'count_transaction' => Transaction::get(),
-            'customer_count' => User::where('type','client')->count(),
-            'rider_count' => User::where('type','rider')->count(),
+            'customer_count' => User::where('role','client')->count(),
+            'rider_count' => User::where('role','rider')->count(),
         ]);
     }
 
     public function redirectHome()
     {
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
             case "admin":
                 return redirect()->route('admin.home');
                 break;
@@ -51,7 +51,7 @@ class HomeController extends Controller
                 return redirect()->route('client.home');
                 break;
             case "rider":
-                return redirect()->route('riders.home');
+                return redirect()->route('rider.home');
                 break;
             case "teller":
                 return redirect()->route('teller.home');

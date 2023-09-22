@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "livewire/livewire": "^2.12",
+        "munafio/chatify": "^1.6",
         "rappasoft/laravel-livewire-tables": "^2.15"
     },
     "require-dev": {

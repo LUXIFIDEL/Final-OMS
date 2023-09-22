@@ -17,7 +17,7 @@ class SalesController extends Controller
      */
     public function index()
     {
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
             case "admin":
                 return view('admin.sales.index');
                 break;

@@ -63,7 +63,7 @@
           <div class="row" style="height:100vh; background-image:url('{{asset('/image/s1.png')}}'); background-size:cover; background-position-y: center; background-position-x:center;">
             <div class="info-content">
               <div class="info-center">
-                <h1 class="mr-font fw-bold text-white">MOODRIDE</h1>
+                <h1 class="mr-font fw-bold text-white">MOONRIDE</h1>
                 <h1 class="mds-font">Multi-Delivery Services</h1>
                 <div class="a-line text-white">
                   <p>A registered company in Bulan, Sorsogon, offers a multi-service platform where anything can be delivered to your doorstep, be it food, supplies, or other goods.</p>

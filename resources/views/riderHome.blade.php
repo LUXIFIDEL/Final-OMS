@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.rider')
 
 @section('title')
 Profile
@@ -14,7 +14,7 @@ Profile
         <div class="row page-titles">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{url('/')}}">Dashboard</a></li>
-                <li class="breadcrumb-item active"><a href="{{route('admin.profile')}}">Profile</a></li>
+                <li class="breadcrumb-item active"><a href="">Profile</a></li>
             </ol>
         </div>
 
@@ -42,9 +42,9 @@ Profile
                         <div class="profile-info">
                             <div class="profile-photo">
                                 @if(isset(auth()->user()->image))
-                                    <img src="{{asset('storage/user_profile/'.auth()->user()->image)}}" class="img-fluid rounded-circle" alt="">
-                                    @else
-                                    <img src="{{asset('image/profile.png')}}" class="img-fluid rounded-circle" alt="">
+                                <img src="{{asset('storage/user_profile/'.auth()->user()->image)}}" class="img-fluid rounded-circle" alt="">
+                                @else
+                                <img src="{{asset('image/profile.png')}}" class="img-fluid rounded-circle" alt="">
                                 @endif
                             </div>
                             <div class="profile-details">
@@ -68,14 +68,28 @@ Profile
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationServer01" class="form-label">Full Name</label>
-                                <input type="text" name="" class="form-control w-100 @error('fname') alert-danger @enderror" value="{{auth()->user()->name}}" id="validationServer01">
+                                <input type="text" name="" class="form-control" value="{{auth()->user()->name}}" id="validationServer01" readonly>
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationServer01" class="form-label">Email Address</label>
-                                <input type="text" name="" class="form-control w-100 @error('fname') alert-danger @enderror" value="{{auth()->user()->email}}" id="validationServer01">
+                                <input type="text" name="" class="form-control" value="{{auth()->user()->email}}" id="validationServer01" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="validationServer01" class="form-label">Date of Birth</label>
+                                <input type="date" name="" class="form-control" value="{{auth()->user()->rider->birthdate?? 'N/A'}}" id="validationServer01" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="validationServer01" class="form-label">Cellphone Number</label>
+                                <input type="text" name="" class="form-control" value="{{auth()->user()->rider->cellphone_number ?? 'N/A'}}" id="validationServer01" readonly>
                             </div>
                         </div>
                     </div>
@@ -92,16 +106,16 @@ Profile
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="form-validation">
-            <form action="{{route('admin.profile.update')}}" method="post" class="needs-validation" novalidate="" enctype="multipart/form-data">
+            <form action="{{route('rider.profile.update')}}" method="post" class="needs-validation" novalidate="" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit Profile</h5>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3 row">
+                <div class="modal-body row">
+                    <div class="mb-3 col-md-12">
                         <label class="col-lg-12 col-form-label" for="validationCustom01">
-                            Admin Name
+                            Fullname
                         </label>
                         <div class="col-lg-12">
                             <input type="text" name="name" class="form-control" id="validationCustom01" placeholder="Enter your name.." value="{{auth()->user()->name}}" required="">
@@ -110,9 +124,9 @@ Profile
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3 row">
+                    <div class="mb-3 col-md-12">
                         <label class="col-lg-12 col-form-label" for="validationCustom02">
-                            Admin Email
+                            Email
                         </label>
                         <div class="col-lg-12">
                             <input type="text" name="email" class="form-control" id="validationCustom02" placeholder="Enter your eamil.." value="{{auth()->user()->email}}" required="">
@@ -121,6 +135,29 @@ Profile
                             </div>
                         </div>
                     </div>
+                    <div class="mb-3 col-md-12">
+                        <label class="col-lg-12 col-form-label" for="validationCustom02">
+                            Date of Birth
+                        </label>
+                        <div class="col-lg-12">
+                            <input type="date" name="dob" class="form-control" id="validationCustom02" placeholder="Enter your eamil.." value="{{auth()->user()->rider->birthdate ?? 'N/A'}}" required="">
+                            <div class="invalid-feedback">
+                                Please enter your email.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-12">
+                        <label class="col-lg-12 col-form-label" for="validationCustom02">
+                            Contact Number
+                        </label>
+                        <div class="col-lg-12">
+                            <input type="text" name="contact" class="form-control" id="validationCustom02" placeholder="Enter your eamil.." value="{{auth()->user()->rider->cellphone_number ?? 'N/A'}}" required="">
+                            <div class="invalid-feedback">
+                                Please enter your email.
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="input-group">
                         <div class="form-file">
                             <input type="file" name="image" class="form-file-input form-control">
@@ -143,7 +180,7 @@ Profile
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="form-validation">
-            <form action="{{route('admin.profile.update.password')}}" method="post" class="needs-validation" novalidate="">
+            <form action="{{route('rider.profile.update.password')}}" method="post" class="needs-validation" novalidate="">
             @csrf
                 @method('PUT')
                 <div class="modal-header">

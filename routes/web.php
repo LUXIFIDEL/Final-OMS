@@ -29,6 +29,10 @@ Route::middleware('is_admin')->as('admin.')->prefix('admin')->group(function(){
         ->prefix('transaction')
         ->group(function(){
             Route::get('/','index')->name('index');
+            Route::put('/status/ca','changeCancelledStatus')->name('update_status');
+            Route::get('/selected/{id}','edit')->name('edit');
+            Route::put('/update/{id}','update')->name('update');
+            Route::put('/status/co','changeCompletedStatus')->name('update_co');
         });
     Route::controller(SalesController::class)
         ->as('sales.')
@@ -77,7 +81,17 @@ Route::middleware('is_teller')->as('teller.')->prefix('teller')->group(function(
 
 Route::middleware('is_rider')->as('rider.')->prefix('rider')->group(function(){
     Route::get('home', [HomeController::class, 'riderHome'])->name('home');
-  
+    Route::controller(TransactionController::class)
+    ->as('transaction.')
+    ->prefix('transaction')
+    ->group(function(){
+        Route::get('/','index')->name('index');
+        Route::post('/store','store')->name('store');
+        Route::put('/change-status','changeCancelledStatus')->name('update_status');
+    });
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/update/password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
 });
 
 Route::middleware('is_client')->as('client.')->prefix('client')->group(function(){

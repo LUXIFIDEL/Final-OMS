@@ -19,25 +19,25 @@ class CreateUsersSeeder extends Seeder
             [
                'name'=>'Admin',
                'email'=>'admin@example.com',
-                'type'=>'1',
+                'role'=>'1',
                'password'=> bcrypt('123456'),
             ],
             [
                'name'=>'User',
                'email'=>'user@example.com',
-                'type'=>'0',
+                'role'=>'0',
                'password'=> bcrypt('123456'),
             ],
             [
                 'name'=>'Rider',
                 'email'=>'rider@example.com',
-                 'type'=>'3',
+                 'role'=>'3',
                 'password'=> bcrypt('123456'),
              ],
              [
                 'name'=>'Teller',
                 'email'=>'teller@example.com',
-                 'type'=>'2',
+                 'role'=>'2',
                 'password'=> bcrypt('123456'),
              ],
         ];

@@ -16,7 +16,7 @@ class IsClient
      */
     public function handle(Request $request, Closure $next)
     {
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
         case "admin":
             return redirect('admin/home')->with('error',"You don't have admin access.");
             break;
@@ -26,8 +26,9 @@ class IsClient
         case "rider":
             return redirect('rider/home')->with('error',"You don't have admin access.");
             break;
-        default:
+        case "teller":
             return redirect('teller/home')->with('error',"You don't have admin access.");
+            break;
         }
     }
 }

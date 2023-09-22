@@ -16,7 +16,7 @@ class IsTeller
      */
     public function handle(Request $request, Closure $next)
     {
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
         case "admin":
             return redirect('admin/home')->with('error',"You don't have admin access.");
             break;
@@ -26,8 +26,9 @@ class IsTeller
         case "rider":
             return redirect('rider/home')->with('error',"You don't have admin access.");
             break;
-        default:
+        case "teller":
             return $next($request);
+            break;
         }
     }
 }

@@ -16,7 +16,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        switch (auth()->user()->type) {
+        switch (auth()->user()->role) {
         case "admin":
             return $next($request);
             break;
@@ -26,8 +26,9 @@ class IsAdmin
         case "rider":
             return redirect('rider/home')->with('error',"You don't have admin access.");
             break;
-        default:
+        case "teller":
             return redirect('teller/home')->with('error',"You don't have admin access.");
+            break;
         }
     }
 }
