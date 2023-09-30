@@ -24,6 +24,9 @@ class HomeController extends Controller
         return view('adminHome', [
             'customer_count' => User::where('role','client')->count(),
             'rider_count' => User::where('role','rider')->count(),
+            'total_sales' => Transaction::where('status', 'Completed')->where('updated_at','like','%'.\Carbon\Carbon::today()->format('Y-m').'%')
+                            ->selectRaw('SUM(prin_amount + delivery_fee) as total_sales')
+                            ->value('total_sales'),
         ]);
     }
 
@@ -38,6 +41,9 @@ class HomeController extends Controller
             'count_transaction' => Transaction::get(),
             'customer_count' => User::where('role','client')->count(),
             'rider_count' => User::where('role','rider')->count(),
+            'total_sales' => Transaction::where('status', 'Completed')->where('updated_at','like','%'.\Carbon\Carbon::today()->format('Y-m').'%')
+                            ->selectRaw('SUM(prin_amount + delivery_fee) as total_sales')
+                            ->value('total_sales'),
         ]);
     }
 

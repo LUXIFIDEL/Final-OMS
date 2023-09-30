@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('trans_no');
             $table->unsignedBigInteger('user_id');
+            $table->string('rider_id')->nullable();
             $table->string('status')->default('Pending');
             $table->string('order');
             $table->string('prin_amount')->nullable();

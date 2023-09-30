@@ -9,6 +9,26 @@ Dashboard
     <!-- row -->
     <div class="container-fluid">
         <div class="row invoice-card-row">
+            
+            <div class="col-xl-4 col-xxl-4 col-sm-6">
+                <div class="card bg-warning invoice-card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3">
+                            <svg width="35px" height="34px">
+                            <path fill-rule="evenodd" fill="rgb(255, 255, 255)" d="M32.482,9.730 C31.092,6.789 28.892,4.319 26.120,2.586 C22.265,0.183 17.698,-0.580 13.271,0.442 C8.843,1.458 5.074,4.140 2.668,7.990 C0.255,11.840 -0.509,16.394 0.514,20.822 C1.538,25.244 4.224,29.008 8.072,31.411 C10.785,33.104 13.896,34.000 17.080,34.000 L17.286,34.000 C20.456,33.960 23.541,33.044 26.213,31.358 C26.991,30.866 27.217,29.844 26.725,29.067 C26.234,28.291 25.210,28.065 24.432,28.556 C22.285,29.917 19.799,30.654 17.246,30.687 C14.627,30.720 12.067,29.997 9.834,28.609 C6.730,26.671 4.569,23.644 3.752,20.085 C2.934,16.527 3.546,12.863 5.486,9.763 C9.488,3.370 17.957,1.418 24.359,5.414 C26.592,6.808 28.360,8.793 29.477,11.157 C30.568,13.460 30.993,16.016 30.707,18.539 C30.607,19.448 31.259,20.271 32.177,20.371 C33.087,20.470 33.911,19.820 34.011,18.904 C34.363,15.764 33.832,12.591 32.482,9.730 L32.482,9.730 Z"></path>
+                            <path fill-rule="evenodd" fill="rgb(255, 255, 255)" d="M22.593,11.237 L14.575,19.244 L11.604,16.277 C10.952,15.626 9.902,15.626 9.250,16.277 C8.599,16.927 8.599,17.976 9.250,18.627 L13.399,22.770 C13.725,23.095 14.150,23.254 14.575,23.254 C15.001,23.254 15.427,23.095 15.753,22.770 L24.940,13.588 C25.592,12.937 25.592,11.888 24.940,11.237 C24.289,10.593 23.238,10.593 22.593,11.237 L22.593,11.237 Z"></path>
+                            </svg>
+                            
+                        </div>
+                        <div>
+                            <h2 class="text-black invoice-num">{{$total_sales}}</h2>
+                            <span class="text-black fs-18">Total sales this month</span>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+
             <div class="col-xl-4 col-xxl-4 col-sm-6">
                 <div class="card bg-warning invoice-card">
                     <div class="card-body d-flex">
@@ -24,7 +44,7 @@ Dashboard
                         </div>
 
                     </div>
-                    <a href="{{route('admin.customer.index')}}" class="btn btn-warning">
+                    <a href="{{route('teller.customer.index')}}" class="btn btn-warning">
                     <span class="text-black">View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -37,33 +57,7 @@ Dashboard
 
                 </div>
             </div>
-            <div class="col-xl-4 col-xxl-4 col-sm-6">
-                <div class="card bg-warning invoice-card">
-                    <div class="card-body d-flex">
-                        <div class="icon me-3">
-                            <svg width="35px" height="34px">
-                            <path fill-rule="evenodd" fill="rgb(255, 255, 255)" d="M32.482,9.730 C31.092,6.789 28.892,4.319 26.120,2.586 C22.265,0.183 17.698,-0.580 13.271,0.442 C8.843,1.458 5.074,4.140 2.668,7.990 C0.255,11.840 -0.509,16.394 0.514,20.822 C1.538,25.244 4.224,29.008 8.072,31.411 C10.785,33.104 13.896,34.000 17.080,34.000 L17.286,34.000 C20.456,33.960 23.541,33.044 26.213,31.358 C26.991,30.866 27.217,29.844 26.725,29.067 C26.234,28.291 25.210,28.065 24.432,28.556 C22.285,29.917 19.799,30.654 17.246,30.687 C14.627,30.720 12.067,29.997 9.834,28.609 C6.730,26.671 4.569,23.644 3.752,20.085 C2.934,16.527 3.546,12.863 5.486,9.763 C9.488,3.370 17.957,1.418 24.359,5.414 C26.592,6.808 28.360,8.793 29.477,11.157 C30.568,13.460 30.993,16.016 30.707,18.539 C30.607,19.448 31.259,20.271 32.177,20.371 C33.087,20.470 33.911,19.820 34.011,18.904 C34.363,15.764 33.832,12.591 32.482,9.730 L32.482,9.730 Z"></path>
-                            <path fill-rule="evenodd" fill="rgb(255, 255, 255)" d="M22.593,11.237 L14.575,19.244 L11.604,16.277 C10.952,15.626 9.902,15.626 9.250,16.277 C8.599,16.927 8.599,17.976 9.250,18.627 L13.399,22.770 C13.725,23.095 14.150,23.254 14.575,23.254 C15.001,23.254 15.427,23.095 15.753,22.770 L24.940,13.588 C25.592,12.937 25.592,11.888 24.940,11.237 C24.289,10.593 23.238,10.593 22.593,11.237 L22.593,11.237 Z"></path>
-                            </svg>
-                            
-                        </div>
-                        <div>
-                            <h2 class="text-black invoice-num"></h2>
-                            <span class="text-black fs-18">Total sales this month</span>
-                        </div>
-                    </div>
-                    <a href="" class="btn btn-warning">
-                    <span class="text-black">View List</span>
-                    <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <rect x="0" y="0" width="24" height="24"/>
-                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
-                            <path d="M7.96323356,15.1775211 C7.62849853,15.5122561 7.08578582,15.5122561 6.75105079,15.1775211 C6.41631576,14.842786 6.41631576,14.3000733 6.75105079,13.9653383 L11.8939067,8.82248234 C12.2184029,8.49798619 12.7409054,8.4866328 13.0791905,8.79672747 L18.2220465,13.5110121 C18.5710056,13.8308912 18.5945795,14.3730917 18.2747004,14.7220508 C17.9548212,15.0710098 17.4126207,15.0945838 17.0636617,14.7747046 L12.5257773,10.6149773 L7.96323356,15.1775211 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.500001, 12.000001) rotate(-270.000000) translate(-12.500001, -12.000001) "/>
-                        </g>
-                    </svg><!--end::Svg Icon--></span>
-                    </a>
-                </div>
-            </div>
+           
             <div class="col-xl-4 col-xxl-4 col-sm-12">
                 <div class="card bg-warning invoice-card">
                     <div class="card-body d-flex">
@@ -78,7 +72,7 @@ Dashboard
                             <span class="text-black fs-18">Total of Rider</span>
                         </div>
                     </div>
-                    <a href="" class="btn btn-warning">
+                    <a href="{{route('teller.rider.index')}}" class="btn btn-warning">
                     <span class="text-black">View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -106,7 +100,7 @@ Dashboard
                         </div>
 
                     </div>
-                    <a href="{{route('admin.customer.index')}}" class="btn btn-warning">
+                    <a href="" class="btn btn-warning">
                     <span class="text-black">View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -135,7 +129,7 @@ Dashboard
                         </div>
 
                     </div>
-                    <a href="{{route('admin.customer.index')}}" class="btn btn-warning">
+                    <a href="{{route('teller.customer.index')}}" class="btn btn-warning">
                     <span class="text-black">View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -164,7 +158,7 @@ Dashboard
                         </div>
 
                     </div>
-                    <a href="{{route('admin.customer.index')}}" class="btn btn-warning">
+                    <a href="{{route('teller.customer.index')}}" class="btn btn-warning">
                     <span class="text-black">View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -193,7 +187,7 @@ Dashboard
                         </div>
 
                     </div>
-                    <a href="{{route('admin.customer.index')}}" class="btn btn-warning">
+                    <a href="{{route('teller.customer.index')}}" class="btn btn-warning">
                     <span class="text-black">View List</span>
                     <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/Code/Right-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -209,43 +203,7 @@ Dashboard
 
            
         </div>
-        <div class="row">
-            <div class="col-xl-12 col-xxl-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Summary Sales Report</h4>
-                        <div class="col-6">
-                            <form method="GET">
-                                <div class="row">
-                                    <label class="col-md-5 mt-2 col-form-label text-md-end">Year of : </label>
-                                    <div class="col-md-4 mt-2">
-                                        <select name="filter" class="form-control">
-                                            @for($i = 0; $i <= 6; $i++)
-                                                @if(isset($_GET['filter']))
-                                                <option {{($_GET['filter'] == Carbon\Carbon::now()->addYear(-$i)->format('Y')) ? 'selected' : ''}} value="{{Carbon\Carbon::now()->addYear(-$i)->format('Y')}}">{{Carbon\Carbon::now()->addYear(-$i)->format('Y')}}</option>
-                                                @else
-                                                <option value="{{Carbon\Carbon::now()->addYear(-$i)->format('Y')}}">{{Carbon\Carbon::now()->addYear(-$i)->format('Y')}}</option>
-                                                @endif
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3 mt-2">
-                                        <button class="btn btn-sm btn-dark">Filter <i class="fa fa-filter" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-
-						</div>	
-                    </div>
-                    <div class="card-body">
-                   
-                    </div>
-                   
-                </div>
-            </div>
-         
-         
-        </div>
+        
     </div>
 </div>
 @endsection

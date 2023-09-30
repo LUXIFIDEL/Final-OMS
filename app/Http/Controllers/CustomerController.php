@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{User,Rider,Transaction,Customer};
 
 class CustomerController extends Controller
 {
@@ -10,20 +11,12 @@ class CustomerController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         switch (auth()->user()->role) {
         case "admin":
             return view('admin.customers.index');
-            break;
-        case "client":
-            break;
-        case "rider":
             break;
         case "teller":
             return view('teller.customers.index');
@@ -31,69 +24,34 @@ class CustomerController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        switch (auth()->user()->role) {
+        case "admin":
+            return view('admin.customers.show',[
+                'get_rider' => Rider::with('user')->get(),
+                'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
+                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::today()->format('Y-m-d') . '%')->get(),
+                'get_user' => User::findOrFail($id),
+                'get_customer' => Customer::get(),
+            ]);
+            break;
+        case "teller":
+            return view('teller.customers.show',[
+                'get_rider' => Rider::with('user')->get(),
+                'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
+                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::today()->format('Y-m-d') . '%')->get(),
+                'get_user' => User::findOrFail($id),
+                'get_customer' => Customer::get(),
+            ]);
+            break;
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function destroy($id){
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->back()->with('message','Successfully Deleted!');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
-        return view('admin.customers.show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

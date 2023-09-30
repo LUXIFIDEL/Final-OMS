@@ -20,7 +20,6 @@ Users Management
                         <div class="card">
                             <div class="card-header bg-warning">
                             <h3 class="card-title">User Management</h3>
-                            <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add New</button>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -28,16 +27,23 @@ Users Management
                                     <table id="example3" class="display" style="min-width: 845px">
                                         <thead>
                                             <tr>
+                                                <th>Date Created</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Date Created</th>
                                                 <th>Role</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                            @foreach($get_user as $data)
+                                            <tr>
+                                                <td>{{$data->created_at}}</td>
+                                                <td>{{$data->name}}</td>
+                                                <td>{{$data->email}}</td>
+                                                <td class="text-capitalize">{{$data->role}}</td>
+                                                <td><a class="text-success" href="">Activated</a></td>
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
 

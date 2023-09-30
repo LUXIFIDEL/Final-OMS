@@ -141,25 +141,37 @@ Profile
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-3 col-md-4">
                         <label class="col-lg-12 col-form-label" for="validationCustom02">
                             Address
                         </label>
                         <div class="col-lg-12">
                             <input type="text" name="address" class="form-control" id="validationCustom02" placeholder="Enter your eamil.." value="{{auth()->user()->customer->address ?? 'N/A'}}" required="">
                             <div class="invalid-feedback">
-                                Please enter your email.
+                                Please enter your address.
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-3 col-md-4">
+                        <label class="col-lg-12 col-form-label" for="validationCustom02">
+                            Sex
+                        </label>
+                        <select class="form-control" name="gender" required="">  
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please enter your address.
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-4">
                         <label class="col-lg-12 col-form-label" for="validationCustom02">
                             Date of Birth
                         </label>
                         <div class="col-lg-12">
                             <input type="date" name="dob" class="form-control" id="validationCustom02" placeholder="Enter your eamil.." value="{{auth()->user()->customer->birthdate ?? 'N/A'}}" required="">
                             <div class="invalid-feedback">
-                                Please enter your email.
+                                Please enter your date of birth.
                             </div>
                         </div>
                     </div>
@@ -170,7 +182,7 @@ Profile
                         <div class="col-lg-12">
                             <input type="text" name="contact" class="form-control" id="validationCustom02" placeholder="Enter your eamil.." value="{{auth()->user()->customer->cellphone_number ?? 'N/A'}}" required="">
                             <div class="invalid-feedback">
-                                Please enter your email.
+                                Please enter your contact.
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ class Transaction extends Model
     protected $fillable = [
         'trans_no',
         'user_id',
+        'rider_id',
         'status',
         'order',
         'prin_amount',
@@ -26,7 +27,4 @@ class Transaction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function assign_rider_transaction(){
-        return $this->hasMany(AssignRiderTransaction::class);
-    }
 }

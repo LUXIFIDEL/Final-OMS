@@ -193,3 +193,41 @@
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="feedModal" tabindex="-1" aria-labelledby="feedModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="form-validation">
+            <form action="" 
+                    method="post" 
+                    class="needs-validation" 
+                    novalidate="" 
+                    enctype="multipart/form-data"
+                    id="feed_frm">
+                <div class="modal-body">
+                    <input type="hidden" 
+                            name="id">
+
+                    <div class="mb-3 row">
+                        <label class="col-lg-12 col-form-label" 
+                                for="validationCustom01">
+                            Feedback
+                        </label>
+                        <div class="col-lg-12">
+                            <textarea name="feedback_msg" 
+                                        class="form-control" 
+                                        id="validationCustom01"
+                                        cols="30" 
+                                        rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>  
+            </form>
+        </div>
+    </div>
+  </div>
+</div>

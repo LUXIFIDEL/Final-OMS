@@ -13,7 +13,7 @@
                 </nav>
             </nav>
             {{-- Search input --}}
-            @if(auth()->user()->role == 'admin')
+            @if(auth()->user()->role == 'admin' || auth()->user()->role == 'teller')
                 <input type="text" class="messenger-search" placeholder="Search" />
             @endif
             {{-- Tabs --}}
@@ -27,7 +27,7 @@
            {{-- Lists [Users/Group] --}}
            {{-- ---------------- [ User Tab ] ---------------- --}}
             
-            @if(auth()->user()->role == 'admin')
+            @if(auth()->user()->role == 'admin' || auth()->user()->role == 'teller')
             <div class="show messenger-tab users-tab app-scroll" data-view="users">
                 {{-- Favorites --}}
                 <div class="favorites-section">
@@ -80,7 +80,7 @@
                 @if(auth()->user()->role == 'admin')
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
                 @endif
-                    <a href="/"><i class="fas fa-home"></i></a>
+                    <a href="/home"><i class="fas fa-home"></i></a>
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>

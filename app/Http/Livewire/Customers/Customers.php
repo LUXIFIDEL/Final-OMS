@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Customers;
 
 use Livewire\Component;
-use App\Models\{User,Customer};
+use App\Models\{User,Customer,ChMessage};
 use Livewire\WithPagination;
 
 class Customers extends Component
@@ -30,11 +30,11 @@ class Customers extends Component
             $user = User::findOrFail($new_item->user_id);
             $new_item->name = $user->name;
             $new_item->email = $user->email;
-            $new_item->type = $user->type;
-
+            $new_item->role = $user->role;
+            $new_item->image = $user->image;
             return $new_item;
         });
-        return view('livewire.customers.customers',['user_customers' => $user_customers]);
+        return view('livewire.customers.customers',['count_message' => ChMessage::where('seen', false)->count(),'user_customers' => $user_customers]);
       
     }
 

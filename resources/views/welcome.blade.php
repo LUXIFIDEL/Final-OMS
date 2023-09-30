@@ -44,9 +44,7 @@
               <form class="d-flex">
                   @if (Route::has('login'))
                       @auth
-                      <a href="{{ route('redirect') }}" class="btn text-sm text-gray-700 dark:text-gray-500"> <i class="fa fa-home"></i> Profile</a>
-                      <a href="{{ route('redirect') }}" class="btn text-sm text-gray-700 dark:text-gray-500"> <i class="fa fa-comment"></i> Chat</a>
-                      <a href="{{ route('redirect') }}" class="btn text-sm text-gray-700 dark:text-gray-500"> <i class="fa fa-shopping-cart"></i> Order List</a>
+                      <a href="{{ route('redirect') }}" class="btn text-sm text-gray-700 dark:text-gray-500"> <i class="fa fa-home"></i> Home</a>
                       @else
                           <a href="{{ route('login') }}" class="w-50 btn btn-md btn-warning mr-2">Log in</a>
 

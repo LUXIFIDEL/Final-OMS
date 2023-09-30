@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->tinyInteger('role')->default(0);
             $table->string('password');
+            $table->tinyInteger('is_deactivated')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -21,7 +21,7 @@ Transactions Management
             </div>
             <div class="col-md-4">
                 <div class="form-validation">
-                    <form action="" method="POST" class="needs-validation" novalidate="">
+                    <form action="{{route('teller.transaction.store')}}" method="POST" class="needs-validation" novalidate="">
                         @csrf
                         <div class="row card">
                             <div class="card-header">
@@ -36,8 +36,9 @@ Transactions Management
                                     <div class="col-lg-12">
                                         <select class="js-single form-control" name="user_id">
                                         <option selected disabled></option>
-                                        <option value="1">Customer 1</option>
-                                        <option value="2">Customer 2</option>
+                                        @foreach($get_customer as $dt_custom)
+                                        <option value="{{ $dt_custom->user->id }}">{{$dt_custom->user->name}}</option>
+                                        @endforeach
                                         </select>
                                         <div class="invalid-feedback">
                                             Please Select Customer
@@ -51,13 +52,22 @@ Transactions Management
                                 </div>
                                 <div class="mb-3 row">
                                     <label class="col-lg-12 col-form-label" for="validationCustom01">
-                                        Assign Rider
+                                        Assign Rider 
                                     </label>
                                     <div class="col-lg-12">
                                     <select class="js-single form-control" name="rider">
                                         <option selected disabled>Selete Rider</option>
                                         @foreach($get_rider->where('is_not_available',false) as $data_rider)
-                                        <option value="{{$data_rider->user->id}}">{{$data_rider->user->name}}</option>
+                                            @php
+                                                $countForRider = $get_count_rider
+                                                    ->where('rider_id', $data_rider->user->id)
+                                                    ->count();
+                                            @endphp
+                                            @if($countForRider >= 5)
+                                            <option disabled>{{ $data_rider->user->name }} (Not Available)</option>
+                                            @else
+                                            <option value="{{ $data_rider->user->id }}">{{ $data_rider->user->name }} (Total Assigned: {{ $countForRider }})</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                         <div class="invalid-feedback">
@@ -76,7 +86,7 @@ Transactions Management
                                             Order
                                         </label>
                                         <div class="col-lg-12">
-                                            <textarea type="text" class="form-control" id="validationCustom01" name="section_name"  value="" placeholder="Enter a Order.." required="" rows="5"></textarea>
+                                            <textarea type="text" class="form-control" id="validationCustom01" name="order_msg"  value="{{old('order_msg')}}" placeholder="Enter a Order.." required="" rows="5"></textarea>
                                             <div class="invalid-feedback">
                                                 Please enter Order.
                                             </div>
@@ -94,7 +104,7 @@ Transactions Management
                                             Order Amount
                                         </label>
                                         <div class="col-lg-12">
-                                            <input type="number" class="form-control rounded-pill" id="validationCustom01" name="section_name"  value="" placeholder="Enter a amount..">
+                                            <input type="number" class="form-control rounded-pill" id="validationCustom01" name="amount"  value="{{old('amount')}}" placeholder="Enter a amount..">
                                             <div class="invalid-feedback">
                                                 Please enter amount.
                                             </div>
@@ -112,7 +122,7 @@ Transactions Management
                                             Delivery Fee
                                         </label>
                                         <div class="col-lg-12">
-                                            <input type="number" class="form-control rounded-pill" id="validationCustom01" name="section_name"  value="" placeholder="Enter a amount.." required="">
+                                            <input type="number" class="form-control rounded-pill" id="validationCustom01" name="delivery_fee"  value="{{old('delivery_fee')}}" placeholder="Enter a amount.." required="">
                                             <div class="invalid-feedback">
                                                 Please enter amount.
                                             </div>

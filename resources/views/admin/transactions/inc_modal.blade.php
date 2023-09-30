@@ -51,55 +51,32 @@
   </div>
 </div>
 
-<div class="modal fade" style="z-index:999999999999" id="feedModal" tabindex="-1" aria-labelledby="feedModalLabel" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="feedModal" tabindex="-1" aria-labelledby="feedModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="form-validation">
-            <form id="feed_frm">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="feedModalLabel">View Feedback</h5>
-                    <h6 id="prin_amount"></h6>
-                    <h6 id="delivery_fee"></h6>
-                </div>
+            <form action="" 
+                    method="post" 
+                    class="needs-validation" 
+                    novalidate="" 
+                    enctype="multipart/form-data"
+                    id="feed_frm">
                 <div class="modal-body">
+                    <input type="hidden" 
+                            name="id">
+
                     <div class="mb-3 row">
-                        <label class="col-lg-12 col-form-label" for="validationCustom01">
-                            Customer Transaction Number:
+                        <label class="col-lg-12 col-form-label" 
+                                for="validationCustom01">
+                            Feedback
                         </label>
                         <div class="col-lg-12">
-                            <input type="text" name="trans_no" class="form-control border-white" readonly>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-lg-12 col-form-label" for="validationCustom01">
-                            Customer Name:
-                        </label>
-                        <div class="col-lg-12">
-                            <input type="text" name="customer" class="form-control border-white" readonly>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label class="col-lg-12 col-form-label" for="validationCustom01">
-                            Customer Address:
-                        </label>
-                        <div class="col-lg-12">
-                            <input type="text" name="address" class="form-control border-white" readonly>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-lg-12 col-form-label" for="validationCustom01">
-                            Customer Order:
-                        </label>
-                        <div class="col-lg-12">
-                            <textarea name="order" class="form-control border-white"  id="validationCustom01" cols="20" rows="3" readonly></textarea>
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-lg-12 col-form-label" for="validationCustom01">
-                            Feedback:
-                        </label>
-                        <div class="col-lg-12">
-                            <textarea name="feedback" class="form-control border-white"  id="validationCustom01" cols="20" rows="3" readonly></textarea>
+                            <textarea name="feedback_msg" 
+                                        class="form-control" 
+                                        id="validationCustom01"
+                                        cols="30" 
+                                        rows="5"></textarea>
                         </div>
                     </div>
                 </div>
@@ -111,7 +88,6 @@
     </div>
   </div>
 </div>
-
 
 <div class="modal fade" style="z-index:999999999999" id="caModal" tabindex="-1" aria-labelledby="caModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

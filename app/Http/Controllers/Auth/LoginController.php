@@ -50,18 +50,18 @@ class LoginController extends Controller
    
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
-            switch (auth()->user()->type) {
+            switch (auth()->user()->role) {
             case "admin":
-                return redirect()->route('admin.home');
+                return redirect('admin/home');
                 break;
             case "client":
-                return redirect()->route('client.home');
+                return redirect('client/home');
                 break;
             case "rider":
-                return redirect()->route('rider.home');
+                return redirect('rider/home');
                 break;
             default:
-                return redirect()->route('teller.home');
+                return redirect('teller/home');
             }
         }else{
             return redirect()->route('login')->with( ['data' => 'Invalid creadentials! Check your email address and password!']);

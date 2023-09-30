@@ -66,7 +66,9 @@ Order Status Management
                                                         data-bs-target="#viewModal"
                                                         id="{{$data->id}}"
                                                         trans_no="{{$data->trans_no}}"
-                                                        order="{{$data->order}}">
+                                                        order="{{$data->order}}"
+                                                        prin_amount="{{$data->prin_amount ?? '0'}}"
+                                                        delivery_fee="{{$data->delivery_fee ?? '0'}}">
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                     <a class="btn btn-danger shadow btn-xs sharp me-1" 
@@ -92,6 +94,7 @@ Order Status Management
                                     <thead>
                                         <tr>
                                             <th>Trans No.</th>
+                                            <th>Total Amount</th>
                                             <th>Rider</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -100,27 +103,26 @@ Order Status Management
                                     <tbody>
                                             @foreach($get_transaction->where('status','Inprocess') as $data)
                                             <tr>
-                                            <td>{{$data->trans_no}}</td>
-                                            <td>{{$data->rider_id ?? 'Waiting for assign rider'}}</td>
-                                            <td><span class="text-info">{{$data->status}}</span></td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a class="btn btn-primary shadow btn-xs sharp me-1" 
-                                                        data-bs-toggle="modal" 
-                                                       data-bs-target="#viewModal"
-                                                        id="{{$data->id}}"
-                                                        trans_no="{{$data->trans_no}}"
-                                                        order="{{$data->order}}">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <a class="btn btn-danger shadow btn-xs sharp me-1" 
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#caModal"
-                                                        id="{{$data->id}}">
-                                                        <i class="fas fa-times-circle"></i>
-                                                    </a>
-                                                </div>		
-                                            </td>
+                                                <td>{{$data->trans_no}}</td>
+                                                <td>{{$data->prin_amount + $data->delivery_fee}}</td>
+                                                @foreach($get_rider->where('id',$data->rider_id)->take(1) as $data_user_id)
+                                                <td>{{$data_user_id->user->name}}</td>
+                                                @endforeach
+                                                <td><span class="text-info">{{$data->status}}</span></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a class="btn btn-primary shadow btn-xs sharp me-1" 
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#viewModal"
+                                                            id="{{$data->id}}"
+                                                            trans_no="{{$data->trans_no}}"
+                                                            order="{{$data->order}}"
+                                                            prin_amount="{{$data->prin_amount ?? '0'}}"
+                                                            delivery_fee="{{$data->delivery_fee ?? '0'}}">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    </div>		
+                                                </td>
                                             </tr>
                                             @endforeach
                                     </tbody>
@@ -136,6 +138,7 @@ Order Status Management
                                     <thead>
                                         <tr>
                                             <th>Trans No.</th>
+                                            <th>Total Amount</th>
                                             <th>Rider</th>
                                             <th>Status</th>
                                             <th>Action</th>
@@ -144,27 +147,35 @@ Order Status Management
                                     <tbody>
                                             @foreach($get_transaction->where('status','Completed') as $data)
                                             <tr>
-                                            <td>{{$data->trans_no}}</td>
-                                            <td>{{$data->rider_id ?? 'Waiting for assign rider'}}</td>
-                                            <td><span class="text-success">{{$data->status}}</span></td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a class="btn btn-primary shadow btn-xs sharp me-1" 
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#viewModal"
-                                                        id="{{$data->id}}"
-                                                        trans_no="{{$data->trans_no}}"
-                                                        order="{{$data->order}}">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                    <a class="btn btn-danger shadow btn-xs sharp me-1" 
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#caModal"
-                                                        id="{{$data->id}}">
-                                                        <i class="fas fa-times-circle"></i>
-                                                    </a>
-                                                </div>		
-                                            </td>
+                                                <td>{{$data->trans_no}}</td>
+                                                <td>{{$data->prin_amount + $data->delivery_fee}}</td>
+                                                @foreach($get_rider->where('id',$data->rider_id)->take(1) as $data_user_id)
+                                                <td>{{$data_user_id->user->name}}</td>
+                                                @endforeach
+                                                <td><span class="text-success">{{$data->status}}</span></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a class="btn btn-primary shadow btn-xs sharp me-1" 
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#viewModal"
+                                                            id="{{$data->id}}"
+                                                            trans_no="{{$data->trans_no}}"
+                                                            order="{{$data->order}}"
+                                                            prin_amount="{{$data->prin_amount ?? '0'}}"
+                                                            delivery_fee="{{$data->delivery_fee ?? '0'}}">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        
+                                                        @if($data->feedback_msg == null)
+                                                        <a class="btn btn-warning shadow btn-xs sharp me-1" 
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#feedModal"
+                                                            id="{{$data->id}}">
+                                                            <i class="fas fa-comments"></i>
+                                                        </a>
+                                                        @endif
+                                                    </div>		
+                                                </td>
                                             </tr>
                                             @endforeach
                                     </tbody>
@@ -189,7 +200,7 @@ Order Status Management
                                         @foreach($get_transaction->where('status','Cancelled') as $data)
                                         <tr>
                                         <td>{{$data->trans_no}}</td>
-                                        <td>{{$data->rider_id ?? 'Waiting for assign rider'}}</td>
+                                        <td>{{'Not Available'}}</td>
                                         <td><span class="text-dark">{{$data->status}}</span></td>
                                         <td>
                                             <div class="d-flex">
@@ -222,6 +233,51 @@ Order Status Management
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="feedModal" tabindex="-1" aria-labelledby="feedModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="form-validation">
+            <form action="{{route('client.transaction.update_feedback')}}" 
+                    method="post" 
+                    class="needs-validation" 
+                    novalidate="" 
+                    enctype="multipart/form-data"
+                    id="feed_frm">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <input type="hidden" 
+                            name="id">
+
+                    <div class="mb-3 row">
+                        <label class="col-lg-12 col-form-label" 
+                                for="validationCustom01">
+                            Feedback
+                        </label>
+                        <div class="col-lg-12">
+                            <textarea name="feedback_msg" 
+                                        class="form-control" 
+                                        id="validationCustom01"
+                                        cols="30" 
+                                        rows="5"></textarea>
+                            @error('feedback_msg')
+                                <small class="text-danger" role="alert">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>  
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="caModal" tabindex="-1" aria-labelledby="caModalLabel" aria-hidden="true">
@@ -324,6 +380,8 @@ Order Status Management
             <form id="view_frm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewModalLabel">View Order</h5>
+                    <h6 id="prin_amount"></h6>
+                    <h6 id="delivery_fee"></h6>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3 row">
@@ -366,9 +424,13 @@ Order Status Management
         var id=$(opener).attr('id');
         var trans_no=$(opener).attr('trans_no');
         var order=$(opener).attr('order');
+        var prin_amount=$(opener).attr('prin_amount');
+        var delivery_fee=$(opener).attr('delivery_fee');
         $('#view_frm').find('[name="id"]').val(id);
         $('#view_frm').find('[name="trans_no"]').val(trans_no);
         $('#view_frm').find('[name="order"]').val(order);
+        document.getElementById('prin_amount').innerText = "Order amount: "+prin_amount;
+        document.getElementById('delivery_fee').innerText = "Order Delivery: "+delivery_fee;
     });
     $('#viewcaModal').on('show.bs.modal', function (e) {
         var opener=e.relatedTarget;
@@ -385,6 +447,11 @@ Order Status Management
         var opener=e.relatedTarget;
         var id=$(opener).attr('id');
         $('#ca_frm').find('[name="id"]').val(id);
+    });
+    $('#feedModal').on('show.bs.modal', function (e) {
+        var opener=e.relatedTarget;
+        var id=$(opener).attr('id');
+        $('#feed_frm').find('[name="id"]').val(id);
     });
 </script>
 @endpush

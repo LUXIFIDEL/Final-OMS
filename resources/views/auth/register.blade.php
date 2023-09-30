@@ -63,11 +63,11 @@
 
             <div class="col-md-4">
                 <div class="form-floating">
-                <select class="form-select mb-2" name="gender">  
-                    <option value="0">Male</option>
-                    <option value="1">Female</option>
-                </select>
-                <label for="floatingSelect">Gender</label>
+                    <select class="form-select mb-2" name="gender">  
+                        <option value="0">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+                    <label for="floatingSelect">Gender</label>
                 </div>
                 @error('gender')
                     <span class="text-danger" role="alert">

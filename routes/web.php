@@ -16,7 +16,8 @@ Route::middleware('is_admin')->as('admin.')->prefix('admin')->group(function(){
         ->prefix('customer')
         ->group(function(){
             Route::get('/','index')->name('index');
-            Route::get('/show','show')->name('show');
+            Route::get('/show/{id}','show')->name('show');
+            Route::delete('/destroy/{id}','destroy')->name('destroy');
         });
     Route::controller(RiderController::class)
         ->as('rider.')
@@ -58,7 +59,8 @@ Route::middleware('is_teller')->as('teller.')->prefix('teller')->group(function(
         ->prefix('customer')
         ->group(function(){
             Route::get('/','index')->name('index');
-            Route::get('/show','show')->name('show');
+            Route::get('/show/{id}','show')->name('show');
+            Route::delete('/destroy/{id}','destroy')->name('destroy');
         });
     Route::controller(RiderController::class)
         ->as('rider.')
@@ -71,10 +73,11 @@ Route::middleware('is_teller')->as('teller.')->prefix('teller')->group(function(
         ->prefix('transaction')
         ->group(function(){
             Route::get('/','index')->name('index');
-            Route::put('/status/ca','changeCancelledStatus')->name('update_status');
+            Route::post('/store','store')->name('store');
             Route::get('/selected/{id}','edit')->name('edit');
             Route::put('/update/{id}','update')->name('update');
             Route::put('/status/co','changeCompletedStatus')->name('update_co');
+            Route::put('/status/ca','changeCancelledStatus')->name('update_status');
         });
 
 });
@@ -86,8 +89,6 @@ Route::middleware('is_rider')->as('rider.')->prefix('rider')->group(function(){
     ->prefix('transaction')
     ->group(function(){
         Route::get('/','index')->name('index');
-        Route::post('/store','store')->name('store');
-        Route::put('/change-status','changeCancelledStatus')->name('update_status');
     });
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
@@ -105,6 +106,8 @@ Route::middleware('is_client')->as('client.')->prefix('client')->group(function(
             Route::get('/create','create')->name('create');
             Route::post('/store','store')->name('store');
             Route::put('/change-status','changeCancelledStatus')->name('update_status');
+            Route::put('/feedback','transactionSubmitFeedBack')->name('update_feedback');
+            Route::get('/feedback/list','transactionFeedBackList')->name('list_feedback');
         });
     Route::get('/msg/{transno}/{str}', [MessageController::class, 'index'])->name('msg');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

@@ -19,7 +19,7 @@
                 </div>
                 
                 <ul class="navbar-nav header-right">
-                    @if(auth()->user()->type == 'client')
+                    @if(auth()->user()->role == 'client')
                     <li class="nav-item">
                         <a href="" class="btn btn-md rounded-circle btn-warning position-relative p-1">
                             <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo3/dist/../src/media/svg/icons/General/Notifications1.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -29,7 +29,7 @@
                                 </g>
                             </svg><!--end::Svg Icon--></span>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
+                                0
                             </span>
                         </a>
                     </li>

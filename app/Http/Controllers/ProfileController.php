@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{User,Customer,Rider};
 use Hash;
 
 class ProfileController extends Controller
@@ -21,7 +21,7 @@ class ProfileController extends Controller
             return view('admin.profile.index');
             break;
         case "client":
-            return view('client.profile.index');
+            return redirect()->route('client.home');
             break;
         case "rider":
             return view('rider.profile.index');
@@ -63,15 +63,26 @@ class ProfileController extends Controller
                 'dob' => 'required|max:255',
                 'contact' => 'required|max:255',
             ]);
-
             $user = User::findOrFail(auth()->user()->id);
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->customer()->update([
-                'address' => $request->address,
-                'birthdate' => $request->dob,
-                'cellphone_number' => $request->contact,
-            ]);
+            $user_exist = Customer::where('user_id', auth()->user()->id)->first();
+            if($user_exist){
+                $user->customer()->update([
+                    'gender' => $request->gender,
+                    'address' => $request->address,
+                    'birthdate' => $request->dob,
+                    'cellphone_number' => $request->contact,
+                ]);
+            }else{
+                $user->customer()->create([
+                    'user_id' => auth()->user()->id, 
+                    'gender' => $request->gender,
+                    'address' => $request->address,
+                    'birthdate' => $request->dob,
+                    'cellphone_number' => $request->contact,
+                ]);
+            }
             if(isset($fileToStore)){
                 $user->image = $fileToStore;
             }
@@ -89,10 +100,20 @@ class ProfileController extends Controller
             $user = User::findOrFail(auth()->user()->id);
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->rider()->update([
-                'birthdate' => $request->dob,
-                'cellphone_number' => $request->contact,
-            ]);
+           
+            $user_exist = Rider::where('user_id', auth()->user()->id)->first();
+            if($user_exist){
+                $user->rider()->update([
+                    'birthdate' => $request->dob,
+                    'cellphone_number' => $request->contact,
+                ]);
+            }else{
+                $user->rider()->create([
+                    'user_id' => auth()->user()->id,
+                    'birthdate' => $request->dob,
+                    'cellphone_number' => $request->contact,
+                ]);
+            }
             if(isset($fileToStore)){
                 $user->image = $fileToStore;
             }

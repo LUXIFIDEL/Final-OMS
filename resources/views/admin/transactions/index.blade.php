@@ -45,14 +45,24 @@ Transactions Management
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-lg-12 col-form-label" for="validationCustom01">
-                                    Assign Rider
+                                    Assign Rider 
                                 </label>
                                 <div class="col-lg-12">
-                                  <select class="js-single form-control" name="rider">
-                                    <option selected disabled></option>
-                                    <option value="1">Rider 1</option>
-                                    <option value="2">Rider 2</option>
-                                  </select>
+                                <select class="js-single form-control" name="rider">
+                                    <option selected disabled>Selete Rider</option>
+                                    @foreach($get_rider->where('is_not_available',false) as $data_rider)
+                                        @php
+                                            $countForRider = $get_count_rider
+                                                ->where('rider_id', $data_rider->user->id)
+                                                ->count();
+                                        @endphp
+                                        @if($countForRider >= 5)
+                                        <option disabled>{{ $data_rider->user->name }} (Not Available)</option>
+                                        @else
+                                        <option value="{{ $data_rider->user->id }}">{{ $data_rider->user->name }} (Total Assigned: {{ $countForRider }})</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                                     <div class="invalid-feedback">
                                         Please Select Rider
                                     </div>
@@ -174,21 +184,9 @@ Transactions Management
     $('#feedModal').on('show.bs.modal', function (e) {
         var opener=e.relatedTarget;
         var id=$(opener).attr('id');
-        var trans_no=$(opener).attr('trans_no');
-        var customer=$(opener).attr('customer');
-        var address=$(opener).attr('address');
-        var order=$(opener).attr('order');
-        var prin_amount=$(opener).attr('prin_amount');
-        var delivery_fee=$(opener).attr('delivery_fee');
-        var feedback=$(opener).attr('feedback');
+        var feedback_msg=$(opener).attr('feedback_msg');
         $('#feed_frm').find('[name="id"]').val(id);
-        $('#feed_frm').find('[name="trans_no"]').val(trans_no);
-        $('#feed_frm').find('[name="customer"]').val(customer);
-        $('#feed_frm').find('[name="address"]').val(address);
-        $('#feed_frm').find('[name="order"]').val(order);
-        $('#feed_frm').find('[name="feedback"]').val(feedback);
-        document.getElementById('prin_amount').innerText = "Order amount: "+prin_amount;
-        document.getElementById('delivery_fee').innerText = "Order Delivery: "+delivery_fee;
+        $('#feed_frm').find('[name="feedback_msg"]').val(feedback_msg);
     });
     $('#viewcaModal').on('show.bs.modal', function (e) {
         var opener=e.relatedTarget;

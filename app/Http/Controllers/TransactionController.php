@@ -19,12 +19,14 @@ class TransactionController extends Controller
         case "admin":
             return view('admin.transactions.index',[
                 'get_rider' => Rider::with('user')->get(),
-                'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
+                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::today()->format('Y-m-d') . '%')->get(),
                 'get_user' => User::get(),
                 'get_customer' => Customer::get(),
             ]);
         case "client":
             return view('customer.orderstatus',[
+                'get_rider' => Rider::with('user')->get(),
                 'get_customer' => Customer::where('user_id',auth()->user()->id)->first(),
                 'get_transaction' => Transaction::where('user_id',auth()->user()->id)->get(),
             ]);
@@ -32,7 +34,7 @@ class TransactionController extends Controller
         case "rider":
             return view('riders.oderstatus',[
                 'get_rider' => Rider::with('user')->findOrFail(auth()->user()->id),
-                'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
                 'get_user' => User::get(),
                 'get_customer' => Customer::get(),
             ]);
@@ -40,7 +42,8 @@ class TransactionController extends Controller
         case "teller":
             return view('teller.transactions.index',[
                 'get_rider' => Rider::with('user')->get(),
-                'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
+                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::today()->format('Y-m-d') . '%')->get(),
                 'get_user' => User::get(),
                 'get_customer' => Customer::get(),
             ]);
@@ -54,14 +57,10 @@ class TransactionController extends Controller
         case "admin":
             return view('admin.transactions.index');
             break;
-        case "rider":
-
-            break;
         case "client":
             $request->validate([
                 'order_msg' => 'required|max:255',
             ]);
-
             $already_transac = Transaction::where('user_id',auth()->user()->id)->where('status','Pending')->first();
             if(!$already_transac){
                 $now = Carbon::now();
@@ -76,14 +75,16 @@ class TransactionController extends Controller
                 return redirect()->route('client.msg',['transno'=>$gentransno,'str'=>'success']);
             }
             return redirect()->route('client.msg',['transno'=>$already_transac->trans_no,'str'=>'error']);
-            
             break;
         case "teller":
             $request->validate([
+                'user_id' => 'required|max:255',
                 'order_msg' => 'required|max:255',
+                'rider' => 'required|max:255',
+                'amount' => 'nullable|numeric|min:0',
+                'delivery_fee' => 'required|numeric|min:0',
             ]);
-
-            $already_transac = Transaction::where('user_id',auth()->user()->id)->where('status','Pending')->first();
+            $already_transac = Transaction::where('user_id',$request->user_id)->where('status','Pending')->first();
             if(!$already_transac){
                 $now = Carbon::now();
                 $datePart = $now->format('Ymd');
@@ -91,12 +92,16 @@ class TransactionController extends Controller
                 $gentransno = $datePart . $timePart;
                 Transaction::create([
                     'trans_no' => $gentransno,
-                    'user_id' => auth()->user()->id,
+                    'user_id' => $request->user_id,
+                    'rider_id' => $request->rider,
                     'order' => $request->order_msg,
+                    'prin_amount' => $request->amount,
+                    'delivery_fee' => $request->delivery_fee,
+                    'status' => 'Inprocess',
                 ]);
-                return redirect()->route('client.msg',['transno'=>$gentransno,'str'=>'success']);
+                return redirect()->back()->with('message','Successfully added to inprocess status!');
             }
-            return redirect()->back()->with('message','Successfully added to Inprocess!');
+            return redirect()->back()->with('error','This user has pending transaction. Please check in pending status!');
             break;
         }
 
@@ -144,7 +149,7 @@ class TransactionController extends Controller
                 return view('admin.transactions.edit',[
                     'gen_trans_select' => $gen_trans_select,
                     'get_rider' => Rider::with('user')->get(),
-                    'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                    'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
                     'get_user' => User::get(),
                     'get_customer' => Customer::get(),
                 ]);
@@ -153,7 +158,7 @@ class TransactionController extends Controller
                 return view('teller.transactions.edit',[
                     'gen_trans_select' => $gen_trans_select,
                     'get_rider' => Rider::with('user')->get(),
-                    'get_transaction' => Transaction::with('assign_rider_transaction')->orderBy('id', 'DESC')->get(),
+                    'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
                     'get_user' => User::get(),
                     'get_customer' => Customer::get(),
                 ]);
@@ -161,30 +166,28 @@ class TransactionController extends Controller
             }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) # para sa Inprocess
     {
         $request->validate([
             'rider' => 'required|max:255',
             'order' => 'required|max:255',
-            'amount' => 'nullable|max:255',
-            'delivery_fee' => 'required|max:255',
+            'amount' => 'nullable|numeric|min:0',
+            'delivery_fee' => 'required|numeric|min:0',
         ]);
-
         $gentransno = Transaction::findOrFail($id);
         $gentransno->update([
+            'rider_id' => $request->rider,
             'order' => $request->order,
             'prin_amount' => $request->amount,
             'delivery_fee' => $request->delivery_fee,
             'status' => 'Inprocess',
-        ]);
-        $gentransno->assign_rider_transaction()->create([
-            'riders_id' => $request->rider,
         ]);
         switch (auth()->user()->role) {
             case "admin":
                 return redirect()
                         ->route('admin.transaction.index',['status_active' => 'inprocess'])
                         ->with('message','Successfully Approved!');
+                break;
 
             case "teller":
                 return redirect()
@@ -194,8 +197,25 @@ class TransactionController extends Controller
             }
     }
 
-    public function destroy($id)
-    {
-        //
+    public function transactionSubmitFeedBack(Request $request){
+        $request->validate([
+            'id' => 'required',
+            'feedback_msg' => 'required|max:255',
+        ]);
+        $gentransno = Transaction::findOrFail($request->id);
+        $gentransno->update([
+            'feedback_msg' => $request->feedback_msg,
+        ]);
+        return redirect()->back()->with('message','Successfully Cancelled!');
+        
+    }
+
+    public function transactionFeedBackList(){
+        return view('customer.feedback',[
+            'get_feedback' => Transaction::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get(),
+            'get_rider' => Rider::with('user')->get(),
+            'get_customer' => Customer::where('user_id',auth()->user()->id)->first(),
+            'get_transaction' => Transaction::where('user_id',auth()->user()->id)->get(),
+        ]);
     }
 }
