@@ -16,6 +16,14 @@ class IsRider
      */
     public function handle(Request $request, Closure $next)
     {
+        $user = auth()->user();
+        
+        if ($user->is_deactivated == 1) {
+            auth()->logout();
+            $request->session()->invalidate();
+            return redirect()->route('login')->with(['data' => 'This user account is deactivated by the admin!']);
+        }
+
         switch (auth()->user()->role) {
         case "admin":
             return redirect('admin/home')->with('error',"You don't have admin access.");

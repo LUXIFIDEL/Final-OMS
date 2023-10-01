@@ -40,32 +40,31 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {   
-        $input = $request->all();
-   
-        $this->validate($request, [
+    {
+        $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-   
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
-            switch (auth()->user()->role) {
-            case "admin":
-                return redirect('admin/home');
-                break;
-            case "client":
-                return redirect('client/home');
-                break;
-            case "rider":
-                return redirect('rider/home');
-                break;
-            default:
-                return redirect('teller/home');
+
+        if (auth()->attempt($credentials)) {
+            $user = auth()->user();
+
+            if ($user->is_deactivated == 1) {
+                auth()->logout();
+                $request->session()->invalidate();
+                return redirect()->route('login')->with(['data' => 'This user account is deactivated by the admin!']);
             }
-        }else{
-            return redirect()->route('login')->with( ['data' => 'Invalid creadentials! Check your email address and password!']);
+
+            $roleRedirects = [
+                'admin' => 'admin/home',
+                'client' => 'client/home',
+                'rider' => 'rider/home',
+            ];
+
+            return redirect($roleRedirects[$user->role] ?? 'teller/home');
         }
-          
+
+        return redirect()->route('login')->with(['data' => 'Invalid credentials! Check your email address and password!']);
     }
+
 }

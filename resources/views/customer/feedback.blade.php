@@ -39,7 +39,7 @@ Order Status Management
                                         @forelse($get_rider->where('id',$data->rider_id)->take(1) as $data_user_id)
                                         <td>{{$data_user_id->user->name}}</td>
                                         @empty
-                                        <td>N/A</td>
+                                        <td>Not Available</td>
                                         @endforelse
                                         <td><span class="text-success">{{$data->status}}</span></td>
                                         <td><textarea class="form-control" cols="30" rows="5">{{$data->feedback_msg}}</textarea></td>
@@ -164,7 +164,7 @@ Order Status Management
         $('#view_frm').find('[name="trans_no"]').val(trans_no);
         $('#view_frm').find('[name="order"]').val(order);
         document.getElementById('prin_amount').innerText = "Order amount: "+prin_amount;
-        document.getElementById('delivery_fee').innerText = "Order Delivery: "+delivery_fee;
+        document.getElementById('delivery_fee').innerText = "Delivery Fee: "+delivery_fee;
     });
     $('#viewcaModal').on('show.bs.modal', function (e) {
         var opener=e.relatedTarget;

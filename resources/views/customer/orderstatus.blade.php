@@ -149,9 +149,11 @@ Order Status Management
                                             <tr>
                                                 <td>{{$data->trans_no}}</td>
                                                 <td>{{$data->prin_amount + $data->delivery_fee}}</td>
-                                                @foreach($get_rider->where('id',$data->rider_id)->take(1) as $data_user_id)
+                                                @forelse($get_rider->where('id',$data->rider_id)->take(1) as $data_user_id)
                                                 <td>{{$data_user_id->user->name}}</td>
-                                                @endforeach
+                                                @empty
+                                                <td>Not Available</td>
+                                                @endforelse
                                                 <td><span class="text-success">{{$data->status}}</span></td>
                                                 <td>
                                                     <div class="d-flex">
@@ -200,7 +202,11 @@ Order Status Management
                                         @foreach($get_transaction->where('status','Cancelled') as $data)
                                         <tr>
                                         <td>{{$data->trans_no}}</td>
-                                        <td>{{'Not Available'}}</td>
+                                        @forelse($get_rider->where('id',$data->rider_id)->take(1) as $data_user_id)
+                                        <td>{{$data_user_id->user->name}}</td>
+                                        @empty
+                                        <td>Not Available</td>
+                                        @endforelse
                                         <td><span class="text-dark">{{$data->status}}</span></td>
                                         <td>
                                             <div class="d-flex">
@@ -430,7 +436,7 @@ Order Status Management
         $('#view_frm').find('[name="trans_no"]').val(trans_no);
         $('#view_frm').find('[name="order"]').val(order);
         document.getElementById('prin_amount').innerText = "Order amount: "+prin_amount;
-        document.getElementById('delivery_fee').innerText = "Order Delivery: "+delivery_fee;
+        document.getElementById('delivery_fee').innerText = "Delivery Fee: "+delivery_fee;
     });
     $('#viewcaModal').on('show.bs.modal', function (e) {
         var opener=e.relatedTarget;

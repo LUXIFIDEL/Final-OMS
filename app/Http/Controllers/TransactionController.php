@@ -20,7 +20,7 @@ class TransactionController extends Controller
             return view('admin.transactions.index',[
                 'get_rider' => Rider::with('user')->get(),
                 'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
-                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::today()->format('Y-m-d') . '%')->get(),
+                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::now()->format('Y-m-d') . '%')->get(),
                 'get_user' => User::get(),
                 'get_customer' => Customer::get(),
             ]);
@@ -43,7 +43,7 @@ class TransactionController extends Controller
             return view('teller.transactions.index',[
                 'get_rider' => Rider::with('user')->get(),
                 'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
-                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::today()->format('Y-m-d') . '%')->get(),
+                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::now()->format('Y-m-d') . '%')->get(),
                 'get_user' => User::get(),
                 'get_customer' => Customer::get(),
             ]);
@@ -55,7 +55,31 @@ class TransactionController extends Controller
     {
         switch (auth()->user()->role) {
         case "admin":
-            return view('admin.transactions.index');
+            $request->validate([
+                'user_id' => 'required|max:255',
+                'order_msg' => 'required|max:255',
+                'rider' => 'required|max:255',
+                'amount' => 'nullable|numeric|min:0',
+                'delivery_fee' => 'required|numeric|min:0',
+            ]);
+            $already_transac = Transaction::where('user_id',$request->user_id)->where('status','Pending')->first();
+            if(!$already_transac){
+                $now = Carbon::now();
+                $datePart = $now->format('Ymd');
+                $timePart = $now->format('His');
+                $gentransno = $datePart . $timePart;
+                Transaction::create([
+                    'trans_no' => $gentransno,
+                    'user_id' => $request->user_id,
+                    'rider_id' => $request->rider,
+                    'order' => $request->order_msg,
+                    'prin_amount' => $request->amount,
+                    'delivery_fee' => $request->delivery_fee,
+                    'status' => 'Inprocess',
+                ]);
+                return redirect()->back()->with('message','Successfully added to inprocess status!');
+            }
+            return redirect()->back()->with('error','This user has pending transaction. Please check in pending status!');
             break;
         case "client":
             $request->validate([

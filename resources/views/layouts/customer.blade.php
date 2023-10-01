@@ -15,6 +15,9 @@
     <link href="{{asset('vendor/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('vendor/nouislider/nouislider.min.css')}}">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    @if(auth()->user()->role == 'client')
+    <link rel="stylesheet" href="{{ asset('vendor/megaphone/css/megaphone.css') }}">
+    @endif
 </head>
 
 <body class="vh-100">

@@ -357,7 +357,7 @@ Customers Management - Transaction History
         $('#view_frm').find('[name="address"]').val(address);
         $('#view_frm').find('[name="order"]').val(order);
         document.getElementById('prin_amount').innerText = "Order amount: "+prin_amount;
-        document.getElementById('delivery_fee').innerText = "Order Delivery: "+delivery_fee;
+        document.getElementById('delivery_fee').innerText = "Delivery Fee: "+delivery_fee;
     });
     $('#viewcaModal').on('show.bs.modal', function (e) {
         var opener=e.relatedTarget;

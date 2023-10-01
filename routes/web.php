@@ -1,7 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{HomeController,CustomerController,RiderController,TransactionController,ExpensesController,SalesController,UserController,ProfileController,MessageController};
+use App\Http\Controllers\{HomeController,CustomerController,RiderController,TransactionController,ExpensesController,SalesController,UserController,ProfileController,MessageController,NotificationController};
+
+Route::get('/test', function () {
+    $notification = new \MBarlow\Megaphone\Types\Important(
+        'Expected Downtime!', // Notification Title
+        'We are expecting some downtime today at around 15:00 UTC for some planned maintenance. Read more on a blog post!', // Notification Body
+        'https://example.com/link', // Optional: URL. Megaphone will add a link to this URL within the Notification display.
+        'Read More...' // Optional: Link Text. The text that will be shown on the link button.
+    );
+    $user = \App\Models\User::find(2);
+
+    $user->notify($notification);
+    return true;
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +43,7 @@ Route::middleware('is_admin')->as('admin.')->prefix('admin')->group(function(){
         ->prefix('transaction')
         ->group(function(){
             Route::get('/','index')->name('index');
+            Route::post('/store','store')->name('store');
             Route::put('/status/ca','changeCancelledStatus')->name('update_status');
             Route::get('/selected/{id}','edit')->name('edit');
             Route::put('/update/{id}','update')->name('update');
@@ -46,6 +60,7 @@ Route::middleware('is_admin')->as('admin.')->prefix('admin')->group(function(){
         ->prefix('account')
         ->group(function(){
             Route::get('/','index')->name('index');
+            Route::put('/change-status/{id}','changeUserStatus')->name('changeUserStatus');
         });
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
@@ -109,6 +124,7 @@ Route::middleware('is_client')->as('client.')->prefix('client')->group(function(
             Route::put('/feedback','transactionSubmitFeedBack')->name('update_feedback');
             Route::get('/feedback/list','transactionFeedBackList')->name('list_feedback');
         });
+    Route::get('/notification/list',[NotificationController::class,'notificationList'])->name('notification');
     Route::get('/msg/{transno}/{str}', [MessageController::class, 'index'])->name('msg');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');

@@ -245,6 +245,7 @@
                                     @empty
                                     <td>N/A</td>
                                     @endforelse
+                                    <td>{{$data->prin_amount + $data->delivery_fee}}</td>
                                     <td><span class="text-secondary">Cancelled</span></td>
                                     <td>
                                     <div class="d-flex">

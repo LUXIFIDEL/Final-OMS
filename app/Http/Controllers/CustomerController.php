@@ -31,7 +31,7 @@ class CustomerController extends Controller
             return view('admin.customers.show',[
                 'get_rider' => Rider::with('user')->get(),
                 'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
-                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::today()->format('Y-m-d') . '%')->get(),
+                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::now()->format('Y-m-d') . '%')->get(),
                 'get_user' => User::findOrFail($id),
                 'get_customer' => Customer::get(),
             ]);
@@ -40,7 +40,7 @@ class CustomerController extends Controller
             return view('teller.customers.show',[
                 'get_rider' => Rider::with('user')->get(),
                 'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
-                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::today()->format('Y-m-d') . '%')->get(),
+                'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::now()->format('Y-m-d') . '%')->get(),
                 'get_user' => User::findOrFail($id),
                 'get_customer' => Customer::get(),
             ]);

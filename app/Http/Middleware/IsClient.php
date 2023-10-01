@@ -16,19 +16,24 @@ class IsClient
      */
     public function handle(Request $request, Closure $next)
     {
-        switch (auth()->user()->role) {
-        case "admin":
-            return redirect('admin/home')->with('error',"You don't have admin access.");
-            break;
-        case "client":
-            return $next($request);
-            break;
-        case "rider":
-            return redirect('rider/home')->with('error',"You don't have admin access.");
-            break;
-        case "teller":
-            return redirect('teller/home')->with('error',"You don't have admin access.");
-            break;
+        $user = auth()->user();
+
+        if ($user->is_deactivated == 1) {
+            auth()->logout();
+            $request->session()->invalidate();
+            return redirect()->route('login')->with(['data' => 'This user account is deactivated by the admin!']);
         }
+
+        $roles = [
+            'admin' => 'You don\'t have admin access.',
+            'rider' => 'You don\'t have admin access.',
+            'teller' => 'You don\'t have admin access.',
+        ];
+
+        if (array_key_exists($user->role, $roles)) {
+            return redirect($user->role . '/home')->with('error', $roles[$user->role]);
+        }
+
+        return $next($request);
     }
 }

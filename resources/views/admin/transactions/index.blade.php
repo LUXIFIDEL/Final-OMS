@@ -13,9 +13,16 @@ Transactions Management
     <div class="container-fluid">
     
     <div class="row">
+        <div>
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+        </div>
         <div class="col-md-4">
             <div class="form-validation">
-                <form action="" method="POST" class="needs-validation" novalidate="">
+                <form action="{{route('admin.transaction.store')}}" method="POST" class="needs-validation" novalidate="">
                     @csrf
                     <div class="row card">
                         <div class="card-header">
@@ -28,10 +35,11 @@ Transactions Management
                                     Select Customer
                                 </label>
                                 <div class="col-lg-12">
-                                    <select class="js-single form-control" name="customer">
-                                      <option selected disabled></option>
-                                      <option value="1">Customer 1</option>
-                                      <option value="2">Customer 2</option>
+                                    <select class="js-single form-control" name="user_id">
+                                    <option selected disabled></option>
+                                    @foreach($get_customer as $dt_custom)
+                                    <option value="{{ $dt_custom->user->id }}">{{$dt_custom->user->name}}</option>
+                                    @endforeach
                                     </select>
                                     <div class="invalid-feedback">
                                         Please Select Customer
@@ -79,7 +87,7 @@ Transactions Management
                                         Order
                                     </label>
                                     <div class="col-lg-12">
-                                        <textarea type="text" class="form-control" id="validationCustom01" name="section_name"  value="" placeholder="Enter a Order.." required="" rows="5"></textarea>
+                                        <textarea type="text" class="form-control" id="validationCustom01" name="order_msg"  value="{{old('order_msg')}}" placeholder="Enter a Order.." required="" rows="5"></textarea>
                                         <div class="invalid-feedback">
                                             Please enter Order.
                                         </div>
@@ -94,10 +102,10 @@ Transactions Management
                             <div class="mb-3 row">
                                 <div class="mb-3 row">
                                     <label class="col-lg-12 col-form-label" for="validationCustom01">
-                                        Total Order
+                                        Order Amount
                                     </label>
                                     <div class="col-lg-12">
-                                        <input type="number" class="form-control rounded-pill" id="validationCustom01" name="section_name"  value="" placeholder="Enter a amount.." required="">
+                                        <input type="number" class="form-control rounded-pill" id="validationCustom01" name="amount"  value="{{old('amount')}}" placeholder="Enter a amount..">
                                         <div class="invalid-feedback">
                                             Please enter amount.
                                         </div>
@@ -115,7 +123,7 @@ Transactions Management
                                         Delivery Fee
                                     </label>
                                     <div class="col-lg-12">
-                                        <input type="number" class="form-control rounded-pill" id="validationCustom01" name="section_name"  value="" placeholder="Enter a amount.." required="">
+                                        <input type="number" class="form-control rounded-pill" id="validationCustom01" name="delivery_fee"  value="{{old('delivery_fee')}}" placeholder="Enter a amount.." required="">
                                         <div class="invalid-feedback">
                                             Please enter amount.
                                         </div>
@@ -129,7 +137,7 @@ Transactions Management
                             </div>
                             <div class="mb-3 row">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="" class="btn btn-dark ">Cancel</a>
+                                    <a href="{{route('admin.transaction.index')}}" class="btn btn-dark ">Cancel</a>
                                     <button type="submit" class="text-black btn btn-warning">Save</button>
                                 </div>
                             </div>
@@ -179,7 +187,7 @@ Transactions Management
         $('#view_frm').find('[name="address"]').val(address);
         $('#view_frm').find('[name="order"]').val(order);
         document.getElementById('prin_amount').innerText = "Order amount: "+prin_amount;
-        document.getElementById('delivery_fee').innerText = "Order Delivery: "+delivery_fee;
+        document.getElementById('delivery_fee').innerText = "Delivery Fee: "+delivery_fee;
     });
     $('#feedModal').on('show.bs.modal', function (e) {
         var opener=e.relatedTarget;

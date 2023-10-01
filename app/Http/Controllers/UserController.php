@@ -14,4 +14,12 @@ class UserController extends Controller
         ]);
     }
 
+    public function changeUserStatus($id){
+        $deactivated = User::findOrFail($id);
+        $deactivated->update([
+            'is_deactivated' => ($deactivated->is_deactivated=='1') ? '0' : '1',
+        ]);
+        return redirect()->back()->with('message','Successfully Changed!');
+    }
+
 }

@@ -21,7 +21,7 @@ Dashboard
                             
                         </div>
                         <div>
-                            <h2 class="text-black invoice-num">{{ $total_sales }}</h2>
+                            <h2 class="text-black invoice-num">{{ $total_sales ?? 0 }}</h2>
                             <span class="text-black fs-18">Total sales this month</span>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ Dashboard
 						</div>	
                     </div>
                     <div class="card-body">
-                   
+                    {!! $chart->container() !!}
                     </div>
                    
                 </div>
@@ -126,5 +126,5 @@ Dashboard
 @endsection
 
 @push('script')
-
+{!! $chart->script() !!}
 @endpush
