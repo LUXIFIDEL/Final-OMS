@@ -125,6 +125,7 @@ Route::middleware('is_client')->as('client.')->prefix('client')->group(function(
             Route::get('/feedback/list','transactionFeedBackList')->name('list_feedback');
         });
     Route::get('/notification/list',[NotificationController::class,'notificationList'])->name('notification');
+    Route::put('/notification/marknotify',[NotificationController::class,'markNotification'])->name('marknotify');
     Route::get('/msg/{transno}/{str}', [MessageController::class, 'index'])->name('msg');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');

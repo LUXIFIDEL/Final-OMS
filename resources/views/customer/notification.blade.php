@@ -29,39 +29,40 @@ Order Status Management
                     </symbol>
                     </svg>
                     <div class="card-body">
-
-                        <div class="alert alert-primary d-flex align-items-center alert-dismissible fade show" role="alert">
-                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                            <div>
-                                An example alert with an icon
+                        <div class="row">
+                            @forelse($users->notifications as $notification)
+                            <div class="col-12 mt-3">
+                                <div class="alert alert-{{ $notification->read_at ? 'primary' : 'success' }} d-flex align-items-center justify-content-between alert-dismissible fade show" role="alert">
+                                    <div>
+                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+                                        {{ $notification->data['title'] }} - {{ $notification->data['body'] }}
+                                    </div>
+                                    @if(!$notification->read_at)
+                                    <form action="{{route('client.marknotify')}}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="id" value="{{$notification->id}}">
+                                        <button type="submit" class="btn btn-sm" class="markasread" ><i class="fa fa-check-circle"></i></button>
+                                    </form>
+                                    @endif
+                                </div>
+                                <small class="float-end">{{ $notification->created_at->diffForHumans() }}</small>
                             </div>
-                        </div>
-
-                        <div class="alert alert-success d-flex align-items-center" role="alert">
-                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                            <div>
-                                An example success alert with an icon
-                            </div>
-                        </div>
-
-                        <div class="alert alert-warning d-flex align-items-center" role="alert">
-                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            <div>
-                                An example warning alert with an icon
-                            </div>
-                        </div>
-
-                        <div class="alert alert-danger d-flex align-items-center" role="alert">
-                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                            <div>
-                                An example danger alert with an icon
-                            </div>
+                            @empty
+                            There are no notifications.
+                            @endforelse
                         </div>
                        
                     </div>
                     <div class="card-footer">
                         <div class="row">
-                            <a class="btn btn-warning btn-sm col-md-2">Mark all as read</a>
+                            <div class="col-12">
+                                <form action="{{route('client.marknotify')}}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-warning btn-sm float-end markall"><i class="fa fa-check-circle"></i> Mark all as read</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                   
@@ -82,42 +83,33 @@ Order Status Management
 <script src="{{asset('js/plugins-init/datatables.init.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-     $(document).ready(function() {
-        $('.js-single').select2();
-    });
-    $('#viewModal').on('show.bs.modal', function (e) {
-        var opener=e.relatedTarget;
-        var id=$(opener).attr('id');
-        var trans_no=$(opener).attr('trans_no');
-        var order=$(opener).attr('order');
-        var prin_amount=$(opener).attr('prin_amount');
-        var delivery_fee=$(opener).attr('delivery_fee');
-        $('#view_frm').find('[name="id"]').val(id);
-        $('#view_frm').find('[name="trans_no"]').val(trans_no);
-        $('#view_frm').find('[name="order"]').val(order);
-        document.getElementById('prin_amount').innerText = "Order amount: "+prin_amount;
-        document.getElementById('delivery_fee').innerText = "Delivery Fee: "+delivery_fee;
-    });
-    $('#viewcaModal').on('show.bs.modal', function (e) {
-        var opener=e.relatedTarget;
-        var id=$(opener).attr('id');
-        var trans_no=$(opener).attr('trans_no');
-        var order=$(opener).attr('order');
-        var reason=$(opener).attr('reason');
-        $('#viewca_frm').find('[name="id"]').val(id);
-        $('#viewca_frm').find('[name="trans_no"]').val(trans_no);
-        $('#viewca_frm').find('[name="order"]').val(order);
-        $('#viewca_frm').find('[name="reason"]').val(reason);
-    });
-    $('#caModal').on('show.bs.modal', function (e) {
-        var opener=e.relatedTarget;
-        var id=$(opener).attr('id');
-        $('#ca_frm').find('[name="id"]').val(id);
-    });
-    $('#feedModal').on('show.bs.modal', function (e) {
-        var opener=e.relatedTarget;
-        var id=$(opener).attr('id');
-        $('#feed_frm').find('[name="id"]').val(id);
+    function sendRequest(id = null) {
+        return $.ajax({
+            url: "{{ route('client.marknotify') }}",
+            method: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                id: id
+            }
+        });
+    }
+
+    $(function () {
+        $('.markasread').click(function () {
+            let request = sendRequest($(this).data('id'));
+
+            request.done(() => {
+                $(this).parents('div.alert').remove();
+            });
+        });
+
+        $('#markall').click(function () {
+            let request = sendRequest();
+
+            request.done(() => {
+                $('div.alert').remove();
+            });
+        });
     });
 </script>
 @endpush

@@ -77,6 +77,19 @@ class TransactionController extends Controller
                     'delivery_fee' => $request->delivery_fee,
                     'status' => 'Inprocess',
                 ]);
+
+                $riderName = User::join('riders', 'users.id', '=', 'riders.user_id')
+                ->where('riders.user_id', $request->rider)
+                ->value('users.name');
+                $notification = new \MBarlow\Megaphone\Types\Important(
+                    'Transaction Approved!',
+                    'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno,
+                    '',
+                    ''
+                );
+                $user = \App\Models\User::find($request->user_id);
+                $user->notify($notification);
+
                 return redirect()->back()->with('message','Successfully added to inprocess status!');
             }
             return redirect()->back()->with('error','This user has pending transaction. Please check in pending status!');
@@ -123,6 +136,19 @@ class TransactionController extends Controller
                     'delivery_fee' => $request->delivery_fee,
                     'status' => 'Inprocess',
                 ]);
+
+                $riderName = User::join('riders', 'users.id', '=', 'riders.user_id')
+                ->where('riders.user_id', $request->rider)
+                ->value('users.name');
+                $notification = new \MBarlow\Megaphone\Types\Important(
+                    'Transaction Approved!',
+                    'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno,
+                    '',
+                    ''
+                );
+                $user = \App\Models\User::find($request->user_id);
+                $user->notify($notification);
+                
                 return redirect()->back()->with('message','Successfully added to inprocess status!');
             }
             return redirect()->back()->with('error','This user has pending transaction. Please check in pending status!');
@@ -141,6 +167,19 @@ class TransactionController extends Controller
             'status' => 'Cancelled',
             'reason' => $request->reason,
         ]);
+
+        $riderName = User::join('riders', 'users.id', '=', 'riders.user_id')
+        ->where('riders.user_id', $gentransno->rider)
+        ->value('users.name');
+        $notification = new \MBarlow\Megaphone\Types\Important(
+            'Transaction Cancelled!',
+            'Your order has been cancelled! Transaction no.:'.$gentransno,
+            '',
+            ''
+        );
+        $user = \App\Models\User::find($gentransno->user_id);
+        $user->notify($notification);
+
         return redirect()->back()->with('message','Successfully Cancelled!');
 
     }
@@ -154,6 +193,19 @@ class TransactionController extends Controller
         $gentransno->update([
             'status' => 'Completed',
         ]);
+
+        $riderName = User::join('riders', 'users.id', '=', 'riders.user_id')
+        ->where('riders.user_id', $gentransno->rider)
+        ->value('users.name');
+        $notification = new \MBarlow\Megaphone\Types\Important(
+            'Transaction Completed!',
+            'Your order has been successfully delivered by '.$riderName.'! We appreciate your order. Transaction no.:'.$gentransno,
+            '',
+            ''
+        );
+        $user = \App\Models\User::find($gentransno->user_id);
+        $user->notify($notification);
+
         return redirect()
                 ->route('teller.transaction.index',['status_active' => 'completed'])
                 ->with('message','Successfully Completed!');
@@ -174,6 +226,7 @@ class TransactionController extends Controller
                     'gen_trans_select' => $gen_trans_select,
                     'get_rider' => Rider::with('user')->get(),
                     'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
+                    'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::now()->format('Y-m-d') . '%')->get(),
                     'get_user' => User::get(),
                     'get_customer' => Customer::get(),
                 ]);
@@ -183,6 +236,7 @@ class TransactionController extends Controller
                     'gen_trans_select' => $gen_trans_select,
                     'get_rider' => Rider::with('user')->get(),
                     'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
+                    'get_count_rider' => Transaction::where('updated_at', 'LIKE', \Carbon\Carbon::now()->format('Y-m-d') . '%')->get(),
                     'get_user' => User::get(),
                     'get_customer' => Customer::get(),
                 ]);
@@ -206,6 +260,19 @@ class TransactionController extends Controller
             'delivery_fee' => $request->delivery_fee,
             'status' => 'Inprocess',
         ]);
+
+        $riderName = User::join('riders', 'users.id', '=', 'riders.user_id')
+        ->where('riders.user_id', $request->rider)
+        ->value('users.name');
+        $notification = new \MBarlow\Megaphone\Types\Important(
+            'Transaction Approved!',
+            'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno,
+            '',
+            ''
+        );
+        $user = \App\Models\User::find($gentransno->user_id);
+        $user->notify($notification);
+
         switch (auth()->user()->role) {
             case "admin":
                 return redirect()

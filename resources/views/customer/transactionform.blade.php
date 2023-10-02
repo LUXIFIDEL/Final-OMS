@@ -37,7 +37,7 @@ Transactions Form
                                             Your Address
                                         </label>
                                         <div class="col-lg-12">
-                                            <input type="text" class="form-control border-0 input-sm" value="{{$get_customer->address ?? 'N/A'}}" readonly>
+                                            <input type="text" class="form-control border-0 input-sm" value="{{auth()->user()->customer->address ?? 'N/A'}}" readonly>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">

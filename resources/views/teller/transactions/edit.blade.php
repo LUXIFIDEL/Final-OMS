@@ -39,9 +39,18 @@ Transactions Management
                                 <div class="col-lg-12">
                                   <select class="js-single form-control" name="rider">
                                     <option selected disabled>Selete Rider</option>
-                                    @foreach($get_rider->where('is_not_available',false) as $data_rider)
-                                    <option value="{{$data_rider->user->id}}">{{$data_rider->user->name}}</option>
-                                    @endforeach
+                                        @foreach($get_rider->where('is_not_available',false) as $data_rider)
+                                            @php
+                                                $countForRider = $get_count_rider
+                                                    ->where('rider_id', $data_rider->user->id)
+                                                    ->count();
+                                            @endphp
+                                            @if($countForRider >= 5)
+                                            <option disabled>{{ $data_rider->user->name }} (Not Available)</option>
+                                            @else
+                                            <option value="{{ $data_rider->user->id }}">{{ $data_rider->user->name }} (Total Assigned: {{ $countForRider }})</option>
+                                            @endif
+                                        @endforeach
                                   </select>
                                     <div class="invalid-feedback">
                                         Please Select Rider
