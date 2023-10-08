@@ -24,19 +24,16 @@ class IsRider
             return redirect()->route('login')->with(['data' => 'This user account is deactivated by the admin!']);
         }
 
-        switch (auth()->user()->role) {
-        case "admin":
-            return redirect('admin/home')->with('error',"You don't have admin access.");
-            break;
-        case "client":
-            return redirect('client/home')->with('error',"You don't have admin access.");
-            break;
-        case "rider":
-            return $next($request);
-            break;
-        case "teller":
-            return redirect('teller/home')->with('error',"You don't have admin access.");
-            break;
+        $roles = [
+            'admin' => 'You don\'t have admin access.',
+            'client' => 'You don\'t have admin access.',
+            'teller' => 'You don\'t have admin access.',
+        ];
+
+        if (array_key_exists($user->role, $roles)) {
+            return redirect($user->role . '/home')->with('error', $roles[$user->role]);
         }
+
+        return $next($request);
     }
 }

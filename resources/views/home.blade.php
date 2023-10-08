@@ -71,31 +71,31 @@ Profile
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationServer01" class="form-label">Full Name</label>
-                                <input type="text" name="" class="form-control" value="{{auth()->user()->name}}" id="validationServer01">
+                                <input type="text" name="" class="form-control" value="{{auth()->user()->name}}" id="validationServer01" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationServer01" class="form-label">Email Address</label>
-                                <input type="text" name="" class="form-control" value="{{auth()->user()->email}}" id="validationServer01">
+                                <input type="text" name="" class="form-control" value="{{auth()->user()->email}}" id="validationServer01" readonly>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="validationServer01" class="form-label">Address</label>
-                                <input type="text" name="" class="form-control" value="{{auth()->user()->customer->address ?? 'N/A'}}" id="validationServer01">
+                                <input type="text" name="" class="form-control" value="{{auth()->user()->customer->address ?? 'N/A'}}" id="validationServer01" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationServer01" class="form-label">Date of Birth</label>
-                                <input type="date" name="" class="form-control" value="{{auth()->user()->customer->birthdate?? 'N/A'}}" id="validationServer01">
+                                <input type="date" name="" class="form-control" value="{{auth()->user()->customer->birthdate?? 'N/A'}}" id="validationServer01" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="validationServer01" class="form-label">Cellphone Number</label>
-                                <input type="text" name="" class="form-control" value="{{auth()->user()->customer->cellphone_number ?? 'N/A'}}" id="validationServer01">
+                                <input type="text" name="" class="form-control" readonly value="{{auth()->user()->customer->cellphone_number ?? 'N/A'}}" id="validationServer01">
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ Profile
 
 
 <!-- Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true" style="z-index:999999;">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="form-validation">

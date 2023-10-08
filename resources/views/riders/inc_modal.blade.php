@@ -56,7 +56,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="form-validation">
-            <form action="{{route('teller.transaction.update_status')}}" 
+            <form action="" 
                     method="post" 
                     class="needs-validation" 
                     novalidate="" 
@@ -104,7 +104,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="form-validation">
-            <form action="{{route('teller.transaction.update_co')}}" 
+            <form action="{{route('rider.transaction.update_co')}}" 
                     method="post" 
                     class="needs-validation" 
                     novalidate="" 

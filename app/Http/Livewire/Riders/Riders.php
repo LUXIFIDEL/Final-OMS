@@ -54,7 +54,7 @@ class Riders extends Component
             'name' => $validated['fname'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'type' => '3',
+            'role' => '3',
         ]);
         $user->rider()->create([
             'user_id' => $user->id,

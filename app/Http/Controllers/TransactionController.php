@@ -33,7 +33,7 @@ class TransactionController extends Controller
             break;
         case "rider":
             return view('riders.oderstatus',[
-                'get_rider' => Rider::with('user')->findOrFail(auth()->user()->id),
+                'get_rider' => Rider::with('user')->get(),
                 'get_transaction' => Transaction::orderBy('id', 'DESC')->get(),
                 'get_user' => User::get(),
                 'get_customer' => Customer::get(),
@@ -68,6 +68,16 @@ class TransactionController extends Controller
                 $datePart = $now->format('Ymd');
                 $timePart = $now->format('His');
                 $gentransno = $datePart . $timePart;
+
+                $notification = new \MBarlow\Megaphone\Types\Important(
+                    'Transaction Approved!',
+                    'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno,
+                    '',
+                    ''
+                );
+                $user = \App\Models\User::find($request->user_id);
+                $user->notify($notification);
+                
                 Transaction::create([
                     'trans_no' => $gentransno,
                     'user_id' => $request->user_id,
@@ -81,14 +91,7 @@ class TransactionController extends Controller
                 $riderName = User::join('riders', 'users.id', '=', 'riders.user_id')
                 ->where('riders.user_id', $request->rider)
                 ->value('users.name');
-                $notification = new \MBarlow\Megaphone\Types\Important(
-                    'Transaction Approved!',
-                    'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno,
-                    '',
-                    ''
-                );
-                $user = \App\Models\User::find($request->user_id);
-                $user->notify($notification);
+              
 
                 return redirect()->back()->with('message','Successfully added to inprocess status!');
             }
@@ -127,6 +130,16 @@ class TransactionController extends Controller
                 $datePart = $now->format('Ymd');
                 $timePart = $now->format('His');
                 $gentransno = $datePart . $timePart;
+
+                $notification = new \MBarlow\Megaphone\Types\Important(
+                    'Transaction Approved!',
+                    'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno,
+                    '',
+                    ''
+                );
+                $user = \App\Models\User::find($request->user_id);
+                $user->notify($notification);
+                
                 Transaction::create([
                     'trans_no' => $gentransno,
                     'user_id' => $request->user_id,
@@ -140,15 +153,7 @@ class TransactionController extends Controller
                 $riderName = User::join('riders', 'users.id', '=', 'riders.user_id')
                 ->where('riders.user_id', $request->rider)
                 ->value('users.name');
-                $notification = new \MBarlow\Megaphone\Types\Important(
-                    'Transaction Approved!',
-                    'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno,
-                    '',
-                    ''
-                );
-                $user = \App\Models\User::find($request->user_id);
-                $user->notify($notification);
-                
+               
                 return redirect()->back()->with('message','Successfully added to inprocess status!');
             }
             return redirect()->back()->with('error','This user has pending transaction. Please check in pending status!');
@@ -199,16 +204,22 @@ class TransactionController extends Controller
         ->value('users.name');
         $notification = new \MBarlow\Megaphone\Types\Important(
             'Transaction Completed!',
-            'Your order has been successfully delivered by '.$riderName.'! We appreciate your order. Transaction no.:'.$gentransno,
+            'Your order has been successfully delivered by '.$riderName.'! We appreciate your order. Transaction no.:'.$gentransno->trans_no,
             '',
             ''
         );
         $user = \App\Models\User::find($gentransno->user_id);
         $user->notify($notification);
-
-        return redirect()
-                ->route('teller.transaction.index',['status_active' => 'completed'])
-                ->with('message','Successfully Completed!');
+        if(auth()->user()->role == 'rider'){
+            return redirect()
+                    ->back()
+                    ->with('success','Successfully Completed!');
+        }else{
+            return redirect()
+                    ->route('teller.transaction.index',['status_active' => 'completed'])
+                    ->with('message','Successfully Completed!');
+        }
+      
     }
 
     public function create() 
@@ -266,7 +277,7 @@ class TransactionController extends Controller
         ->value('users.name');
         $notification = new \MBarlow\Megaphone\Types\Important(
             'Transaction Approved!',
-            'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno,
+            'Your order is currently being processed and has been assigned to rider '.$riderName.'! Transaction no.:'.$gentransno->trans_no,
             '',
             ''
         );

@@ -56,7 +56,7 @@ Transactions Management
                                     </label>
                                     <div class="col-lg-12">
                                     <select class="js-single form-control" name="rider">
-                                        <option selected disabled>Selete Rider</option>
+                                        <option selected disabled>Select Rider</option>
                                         @foreach($get_rider->where('is_not_available',false) as $data_rider)
                                             @php
                                                 $countForRider = $get_count_rider

@@ -83,6 +83,7 @@ Route::middleware('is_teller')->as('teller.')->prefix('teller')->group(function(
         ->group(function(){
             Route::get('/','index')->name('index');
         });
+        
     Route::controller(TransactionController::class)
         ->as('transaction.')
         ->prefix('transaction')
@@ -104,6 +105,7 @@ Route::middleware('is_rider')->as('rider.')->prefix('rider')->group(function(){
     ->prefix('transaction')
     ->group(function(){
         Route::get('/','index')->name('index');
+        Route::put('/status/co','changeCompletedStatus')->name('update_co');
     });
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');

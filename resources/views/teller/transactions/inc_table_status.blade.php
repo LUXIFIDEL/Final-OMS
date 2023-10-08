@@ -198,7 +198,7 @@
                                                 order="{{$data->order}}">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-
+<!-- 
                                             @if($data->feedback_msg != null)
                                             <a class="btn btn-warning shadow btn-xs sharp me-1" 
                                                 data-bs-toggle="modal" 
@@ -207,7 +207,7 @@
                                                 feedback_msg="{{$data->feedback_msg}}">
                                                 <i class="fas fa-comments"></i>
                                             </a>
-                                            @endif
+                                            @endif -->
 
                                         </div>		
                                     </td>
